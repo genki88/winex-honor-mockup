@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="winex-honor S1 心晴天氣圖 UI 草樣">
+<meta name="description" content="winex-honor S1 心晴天氣圖：效益、九宮格計畫與可操作草樣">
 <title>心晴天氣圖</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700&display=swap">
 <style>
 :root{
-  --ground:#EEF1F4; --grid:#DFE5EA; --surface:#FFFFFF; --surface-2:#F7F9FA;
+  --ground:#EEF1F4; --surface:#FFFFFF; --surface-2:#F7F9FA;
   --ink:#17212B; --ink-2:#4E6070; --ink-3:#7B8B99; --line:#D5DDE3;
-  --accent:#286A88; --accent-soft:#E2EDF2;
+  --accent:#286A88; --accent-soft:#E2EDF2; --accent-line:#A9CBDA;
+  --extra:#6B4E8F; --extra-soft:#EEE8F5; --extra-line:#C4B0DC;
   --sunny:#E8981C; --cloudy:#93A6B6; --rain:#3D7DB3; --storm:#3D3B70;
   --warn:#B4432E; --warn-soft:#F7E6E1;
+  --good:#2E7D5B;
   --phone:#FBFCFD; --phone-line:#E3E9EE;
   --serif:"Noto Serif TC",Georgia,"Songti TC",serif;
   --sans:"Noto Sans TC",-apple-system,"Segoe UI","Microsoft JhengHei",sans-serif;
@@ -23,216 +25,457 @@
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#101519; --grid:#1E262D; --surface:#1B242B; --surface-2:#1B242B;
+    --ground:#101519; --surface:#1B242B; --surface-2:#182027;
     --ink:#E6ECF1; --ink-2:#A5B5C2; --ink-3:#7A8C9A; --line:#2A353E;
-    --accent:#68B4D4; --accent-soft:#17313D;
+    --accent:#68B4D4; --accent-soft:#17313D; --accent-line:#2E5C70;
+    --extra:#B29BD8; --extra-soft:#241D33; --extra-line:#4A3D66;
     --sunny:#F0A83A; --cloudy:#8FA2B2; --rain:#5C9AD0; --storm:#7370B8;
     --warn:#E0806A; --warn-soft:#33201B;
+    --good:#63B692;
     --phone:#161E24; --phone-line:#26313A;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#101519; --grid:#1E262D; --surface:#1B242B; --surface-2:#1B242B;
+  --ground:#101519; --surface:#1B242B; --surface-2:#182027;
   --ink:#E6ECF1; --ink-2:#A5B5C2; --ink-3:#7A8C9A; --line:#2A353E;
-  --accent:#68B4D4; --accent-soft:#17313D;
+  --accent:#68B4D4; --accent-soft:#17313D; --accent-line:#2E5C70;
+  --extra:#B29BD8; --extra-soft:#241D33; --extra-line:#4A3D66;
   --sunny:#F0A83A; --cloudy:#8FA2B2; --rain:#5C9AD0; --storm:#7370B8;
   --warn:#E0806A; --warn-soft:#33201B;
+  --good:#63B692;
   --phone:#161E24; --phone-line:#26313A;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1160px;margin:0 auto;padding:40px 24px 72px;display:flex;flex-direction:column;gap:44px}
-
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:44px 24px 80px;display:flex;flex-direction:column;gap:60px}
+section{display:flex;flex-direction:column;gap:22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);margin:0}
-h1{font-family:var(--serif);font-size:clamp(30px,5vw,46px);line-height:1.15;margin:6px 0 0;
+h1{font-family:var(--serif);font-size:clamp(32px,5.4vw,50px);line-height:1.12;margin:8px 0 0;
   text-wrap:balance;letter-spacing:-.01em}
-.lede{margin:14px 0 0;max-width:60ch;color:var(--ink-2);font-size:17px}
-.status{margin-top:18px;display:inline-flex;align-items:flex-start;gap:10px;padding:9px 15px;
+h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-wrap:balance}
+.sec-sub{margin:-14px 0 0;color:var(--ink-2);font-size:15.5px;max-width:66ch}
+.lede{margin:16px 0 0;max-width:58ch;color:var(--ink-2);font-size:17.5px}
+.status{margin-top:20px;display:inline-flex;align-items:flex-start;gap:10px;padding:9px 15px;
   border:1px solid var(--line);border-radius:13px;background:var(--surface-2);
-  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:52ch}
+  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:56ch}
 .status b{color:var(--ink);font-weight:500}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none;margin-top:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none;margin-top:8px}
+.rule{height:1px;background:var(--line);border:0;margin:0}
 
-.legend{display:flex;flex-wrap:wrap;gap:8px 22px;padding-top:4px}
-.legend span{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--ink-2);
-  font-family:var(--mono)}
-.sw{width:13px;height:13px;border-radius:3px;flex:none}
+/* ---- 效益 ---- */
+.mechs{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.mech{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px 22px 24px;
+  display:flex;flex-direction:column;gap:10px}
+.mech .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent)}
+.mech h3{margin:0;font-size:18.5px;line-height:1.4}
+.mech p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72}
+.mech .num{font-family:var(--serif);font-size:29px;color:var(--ink);line-height:1.2;
+  font-variant-numeric:tabular-nums}
+.mech .num small{font-size:14px;color:var(--ink-3);font-family:var(--sans);margin-left:6px}
+.alarm{border:1px solid var(--warn);border-left-width:4px;border-radius:0 14px 14px 0;
+  background:var(--warn-soft);padding:20px 24px;display:flex;flex-direction:column;gap:8px}
+.alarm h3{margin:0;font-size:18px;color:var(--ink)}
+.alarm p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72;max-width:76ch}
+.alarm p b{color:var(--ink)}
 
-.screens{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
-.screen{display:flex;flex-direction:column;gap:12px;width:340px;flex:none}
-.screen-cap{display:flex;align-items:baseline;gap:10px}
+/* ---- 九宮格 ---- */
+.nine{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:780px}
+.cell{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 15px 16px;
+  text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;min-height:132px;
+  display:flex;flex-direction:column;gap:7px;transition:border-color .15s,box-shadow .15s}
+.cell:hover{border-color:var(--accent-line)}
+.cell:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cell[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.cell .tag{font-family:var(--mono);font-size:10px;letter-spacing:.09em;padding:2px 7px;border-radius:5px;
+  align-self:flex-start;border:1px solid var(--accent-line);color:var(--accent);background:var(--accent-soft)}
+.cell.x .tag{border-color:var(--extra-line);color:var(--extra);background:var(--extra-soft)}
+.cell.x[aria-pressed="true"]{border-color:var(--extra);box-shadow:0 0 0 2px var(--extra-soft)}
+.cell.x:hover{border-color:var(--extra-line)}
+.cell .t{font-size:16px;font-weight:700;line-height:1.4}
+.cell .s{font-size:12.5px;color:var(--ink-3);line-height:1.55}
+.cell.core{background:var(--ink);border-color:var(--ink);color:var(--ground);cursor:default;
+  justify-content:center;gap:9px}
+.cell.core .t{font-family:var(--serif);font-size:17px;color:#FFFFFF}
+.cell.core .s{color:#C6D2DB;font-size:12.5px}
+.cell.core .tag{border-color:#4A5C6B;color:#C6D2DB;background:transparent}
+.detail{border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:24px 26px;
+  display:flex;flex-direction:column;gap:16px}
+.detail .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px}
+.detail h3{margin:0;font-size:20px}
+.detail .chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:3px 9px;border-radius:6px;
+  border:1px solid var(--accent-line);color:var(--accent);background:var(--accent-soft)}
+.detail .chip.x{border-color:var(--extra-line);color:var(--extra);background:var(--extra-soft)}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px 30px;margin:0}
+.dl div{display:flex;flex-direction:column;gap:5px}
+.dl dt{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--ink-3)}
+.dl dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72}
+.dl dd b{color:var(--ink);font-weight:700}
+
+/* ---- phones ---- */
+.screens{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start}
+.screen{display:flex;flex-direction:column;gap:11px;width:340px;flex:none}
+.screen-cap{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .screen-num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
 .screen-name{font-size:15px;font-weight:700}
 .screen-role{font-size:13px;color:var(--ink-3)}
-.phone{width:340px;height:648px;border:1px solid var(--phone-line);border-radius:26px;
+.live{font-family:var(--mono);font-size:10.5px;color:var(--good);border:1px solid var(--good);
+  border-radius:5px;padding:1px 6px}
+.phone{width:340px;height:700px;border:1px solid var(--phone-line);border-radius:26px;
   background:var(--phone);overflow:hidden;display:flex;flex-direction:column;
   box-shadow:0 1px 2px rgba(15,30,45,.05),0 14px 34px -22px rgba(15,30,45,.5)}
-.bar{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;
-  font-family:var(--mono);font-size:11px;color:var(--ink-3);border-bottom:1px solid var(--phone-line);flex:none}
+.bar{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex:none;
+  font-family:var(--mono);font-size:11px;color:var(--ink-3);border-bottom:1px solid var(--phone-line)}
 .tabs{display:flex;border-bottom:1px solid var(--phone-line);flex:none}
-.tab{flex:1;text-align:center;padding:13px 0;font-size:15px;font-weight:500;color:var(--ink-3);
+.tab{flex:1;text-align:center;padding:12px 0;font-size:14.5px;font-weight:500;color:var(--ink-3);
   border-bottom:2.5px solid transparent}
 .tab.on{color:var(--ink);font-weight:700;border-bottom-color:var(--accent)}
-.tab.ghost{color:var(--ink-3);opacity:.45}
-.body{flex:1;padding:22px 20px 0;overflow:hidden;display:flex;flex-direction:column}
-.foot{padding:11px 16px;border-top:1px solid var(--phone-line);background:var(--surface-2);
-  font-size:12.5px;line-height:1.5;color:var(--ink-2);text-align:center;flex:none}
+.tab.ghost{opacity:.45}
+.pbody{flex:1;padding:20px 18px 6px;overflow-y:auto;display:flex;flex-direction:column}
+.foot{padding:10px 14px;border-top:1px solid var(--phone-line);background:var(--surface-2);flex:none;
+  font-size:12.5px;line-height:1.5;color:var(--ink-2);text-align:center}
+.ask{font-size:21px;font-weight:700;margin:0 0 3px}
+.ask-sub{font-size:13.5px;color:var(--ink-3);margin:0 0 16px}
 
-.ask{font-size:21px;font-weight:700;margin:0 0 4px}
-.ask-sub{font-size:14px;color:var(--ink-3);margin:0 0 18px}
-
-.moods{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mood{min-height:112px;border:2px solid var(--line);border-radius:16px;background:var(--surface);
-  color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:8px;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s,transform .1s}
-.mood .ic{color:var(--c);display:block;width:42px;height:42px}
-.mood svg{width:42px;height:42px;display:block}
-.mood span.lb{font-size:20px;font-weight:700;letter-spacing:.02em}
+.moods{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mood{min-height:108px;border:2px solid var(--line);border-radius:16px;background:var(--surface);
+  color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s,transform .1s}
+.mood .ic{color:var(--c);display:block;width:40px;height:40px}
+.mood svg{width:40px;height:40px;display:block}
+.mood .lb{font-size:19px;font-weight:700}
 .mood:hover{border-color:var(--c)}
-.mood:active{transform:scale(.98)}
+.mood:active{transform:scale(.97)}
 .mood:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.mood[aria-pressed="true"]{border-color:var(--c);background:var(--accent-soft)}
 
-.done{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:20px;
-  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
-.done .ic{color:var(--c);display:block;width:56px;height:56px}
-.done svg{width:56px;height:56px;display:block}
-.done-tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink-3)}
+.done{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:22px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.done .ic{color:var(--c);display:block;width:54px;height:54px}
+.done svg{width:54px;height:54px;display:block}
+.done-tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-3)}
 .done-name{font-size:26px;font-weight:900;line-height:1.2}
-.done-time{font-size:13px;color:var(--ink-3)}
-.redo{margin-top:16px;width:100%;min-height:56px;border:2px solid var(--accent);border-radius:14px;
-  background:transparent;color:var(--accent);font-family:inherit;font-size:17px;font-weight:700;
-  cursor:pointer}
+.done-time{font-size:12.5px;color:var(--ink-3)}
+.redo{margin-top:14px;width:100%;min-height:54px;border:2px solid var(--accent);border-radius:14px;
+  background:transparent;color:var(--accent);font-family:inherit;font-size:16.5px;font-weight:700;cursor:pointer}
 .redo:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.streak{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);
+  padding:12px 14px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
+.streak b{color:var(--ink)}
 
-.chart-h{display:flex;justify-content:space-between;align-items:baseline}
-.chart-h h2{font-size:19px;font-weight:700;margin:0}
-.chart-h em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
-.plot{height:206px;display:flex;align-items:flex-end;gap:2px;margin-top:18px;
+.chart-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.chart-h h2{font-size:18.5px;font-weight:700;margin:0}
+.chart-h em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.delta{display:flex;gap:9px;margin-top:12px}
+.kpi{flex:1;border:1px solid var(--line);border-radius:11px;background:var(--surface);padding:9px 11px;
+  display:flex;flex-direction:column;gap:1px}
+.kpi .k{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-3)}
+.kpi .v{font-size:19px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.3}
+.kpi .d{font-size:11px;font-weight:700}
+.up{color:var(--warn)} .down{color:var(--good)}
+
+.plotwrap{position:relative;margin-top:15px}
+.band{position:absolute;top:0;bottom:0;background:var(--warn-soft);border-left:1px dashed var(--warn);
+  border-right:1px dashed var(--warn);opacity:0;transition:opacity .2s;pointer-events:none}
+.plotwrap.show .band{opacity:1}
+.band span{position:absolute;top:-15px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:9.5px;color:var(--warn)}
+.plot{position:relative;height:172px;display:flex;align-items:flex-end;gap:2px;
   border-bottom:1px solid var(--line)}
 .col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
-.col.flag::after{content:"";position:absolute;bottom:-7px;left:0;right:0;height:3px;
+.col.flag::after{content:"";position:absolute;bottom:-6px;left:0;right:0;height:3px;
   background:var(--warn);border-radius:2px}
 .seg{width:100%}
 .gap{height:100%;border:1px dashed var(--line);border-bottom:none;
   background:repeating-linear-gradient(135deg,transparent 0 3px,var(--line) 3px 4px)}
-.xaxis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;
-  color:var(--ink-3);margin-top:12px;font-variant-numeric:tabular-nums}
-.note{margin-top:14px;display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.55;
-  color:var(--ink-2);background:var(--warn-soft);border-left:3px solid var(--warn);
-  padding:10px 12px;border-radius:0 8px 8px 0}
-.note b{color:var(--ink);font-weight:700}
-.gap-key{margin-top:12px;font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:8px}
-.gap-key i{width:14px;height:14px;display:block;flex:none;border:1px dashed var(--line);
+.xaxis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;
+  color:var(--ink-3);margin-top:11px;font-variant-numeric:tabular-nums}
+.toggle{margin-top:13px;width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:11px;
+  background:var(--surface);color:var(--ink-2);font-family:inherit;font-size:13.5px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px}
+.toggle:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.toggle[aria-pressed="true"]{border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.sw-ui{width:32px;height:18px;border-radius:99px;background:var(--line);position:relative;flex:none}
+.sw-ui::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+  background:var(--surface);transition:transform .16s}
+.toggle[aria-pressed="true"] .sw-ui{background:var(--warn)}
+.toggle[aria-pressed="true"] .sw-ui::after{transform:translateX(14px)}
+.finding{margin-top:12px;font-size:12.5px;line-height:1.62;color:var(--ink-2);
+  border-left:3px solid var(--line);padding:2px 0 2px 11px}
+.finding b{color:var(--ink)}
+.action{margin-top:13px;border:1px solid var(--warn);border-radius:12px;background:var(--warn-soft);
+  padding:13px 14px;font-size:12.5px;line-height:1.62;color:var(--ink-2)}
+.action .h{font-weight:900;color:var(--ink);font-size:13px;display:block;margin-bottom:5px}
+.action ol{margin:6px 0 0;padding-left:17px;display:flex;flex-direction:column;gap:4px}
+.gap-key{margin-top:11px;font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:7px}
+.gap-key i{width:13px;height:13px;display:block;flex:none;border:1px dashed var(--line);
   background:repeating-linear-gradient(135deg,transparent 0 3px,var(--line) 3px 4px)}
 
-.specs{border-top:1px solid var(--line);padding-top:32px;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:28px 34px}
-.spec h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--accent);
-  margin:0 0 7px;font-weight:500}
-.spec p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.65}
-.spec p b{color:var(--ink);font-weight:700}
-.open{border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:22px 24px}
-.open h2{font-family:var(--serif);font-size:21px;margin:0 0 10px}
-.open ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
-.open li{font-size:14.5px;color:var(--ink-2)}
-.open li b{color:var(--ink)}
+.srow{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--surface);
+  padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;font-family:inherit;
+  color:var(--ink);text-align:left;margin-bottom:8px}
+.srow:hover{border-color:var(--accent-line)}
+.srow:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.srow[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.srow .nm{font-size:14.5px;font-weight:700;width:56px;flex:none}
+.spark{flex:1;height:30px;display:flex;align-items:flex-end;gap:1px}
+.spark i{flex:1;background:var(--storm);border-radius:1px;display:block;min-height:1px}
+.spark i.nil{background:var(--line);height:2px!important}
+.srow .pc{font-family:var(--mono);font-size:13px;font-weight:500;width:40px;text-align:right;
+  font-variant-numeric:tabular-nums;flex:none}
+.srow .ar{width:15px;text-align:center;font-size:13px;font-weight:900;flex:none}
+.flagdot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none}
+.flagdot.off{background:transparent}
+.sdetail{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:13px 14px;
+  margin-top:4px}
+.sdetail .t{font-size:14px;font-weight:700;margin-bottom:9px}
+.sdetail .mini{height:64px;display:flex;align-items:flex-end;gap:1.5px;border-bottom:1px solid var(--line)}
+.sdetail .note2{margin-top:9px;font-size:12px;color:var(--ink-2);line-height:1.6}
+.sdetail .note2 b{color:var(--ink)}
+
+/* ---- phases ---- */
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(276px,1fr));gap:20px}
+.phase{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px 21px 22px;
+  display:flex;flex-direction:column;gap:11px}
+.phase .n{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent)}
+.phase h3{margin:0;font-size:17.5px}
+.phase .when{font-size:12.5px;color:var(--ink-3);font-family:var(--mono)}
+.phase ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.phase li{font-size:14px;color:var(--ink-2);line-height:1.65}
+.phase li b{color:var(--ink);font-weight:700}
+.st{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:5px;margin-left:5px;
+  border:1px solid var(--line);color:var(--ink-3);white-space:nowrap}
+.st.done2{border-color:var(--good);color:var(--good)}
+
+.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px}
+.panel{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px 24px;
+  display:flex;flex-direction:column;gap:12px}
+.panel h3{margin:0;font-size:18px}
+.panel ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.panel li{font-size:14.5px;color:var(--ink-2);line-height:1.7}
+.panel li b{color:var(--ink)}
+.panel.out{background:var(--surface-2)}
+table.succ{width:100%;border-collapse:collapse;font-size:14px}
+table.succ th,table.succ td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);
+  vertical-align:top}
+table.succ th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);font-weight:400}
+table.succ td{color:var(--ink-2);line-height:1.6}
+table.succ td b{color:var(--ink)}
+.scroll{overflow-x:auto}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
   <header>
-    <p class="eyebrow">winex-honor / S1 · 草樣</p>
+    <p class="eyebrow">winex-honor / S1 · 草樣 v2</p>
     <h1>心晴天氣圖</h1>
-    <p class="lede">同仁每天點一下今天的天氣，四顆按鈕、不打字、十秒內結束。店長看得到的只有全店的天氣，看不到任何一個人。</p>
-    <p class="status"><span class="dot"></span><span><b>這是草樣</b>　尚未接資料庫，也還沒有可掛載的 LIFF 宿主</span></p>
-    <div class="legend" style="margin-top:22px">
-      <span><i class="sw" style="background:var(--sunny)"></i>晴</span>
-      <span><i class="sw" style="background:var(--cloudy)"></i>多雲</span>
-      <span><i class="sw" style="background:var(--rain)"></i>陣雨</span>
-      <span><i class="sw" style="background:var(--storm)"></i>暴風雨</span>
-    </div>
+    <p class="lede">同仁每天點一下今天的天氣。按鈕本身沒有價值——價值在它連續記三個月之後，能不能讓你在人真的走之前看見訊號。</p>
+    <p class="status"><span class="dot"></span><span><b>這是草樣</b>　畫面可實際操作，但未接資料庫。圖上所有數字都是示意值。</span></p>
   </header>
 
-  <section class="screens">
-    <div class="screen">
-      <div class="screen-cap"><span class="screen-num">A</span>
-        <span class="screen-name">今天還沒記錄</span><span class="screen-role">一般同仁</span></div>
-      <div class="phone">
-        <div class="bar"><span>9:41</span><span>winex-honor</span></div>
-        <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">心晴</div><div class="tab ghost">我的</div></div>
-        <div class="body">
-          <p class="ask">今天的天氣如何？</p>
-          <p class="ask-sub">9 月 10 日　點一下就好，不用打字</p>
-          <div class="moods" id="moods"></div>
-        </div>
-        <div class="foot">本頁僅本人看得到，主管只看得到全店的天氣</div>
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">效益從哪裡來</h2>
+    <p class="sec-sub">一個「今天心情如何」的按鈕，單獨看資訊量趨近於零。單日是雜訊、個人資料看不得也不該看、沒有原因沒有文字。效益全部在按鈕之後的三件事上。</p>
+    <div class="mechs">
+      <div class="mech">
+        <span class="lab">機制一</span>
+        <h3>離職的領先指標</h3>
+        <p>美容業的離職成本不是招募費，是<b>客人跟著人走</b>。而離職幾乎不是突發的，前面通常有三到六週的狀態下滑。年度問卷看不到這段——一年只量一次，填的時候人已經決定要走了。</p>
+        <p class="num">1 人／年<small>一家店攔下一個原本會走的人，就回本</small></p>
+      </div>
+      <div class="mech">
+        <span class="lab">機制二</span>
+        <h3>指向管理變數，不指向個人</h3>
+        <p>同樣的政策、同樣的季節、同樣的客層，A 店持續比 B 店差——那不是 A 店的人比較脆弱，是排班、業績壓力或帶人方式的差異。</p>
+        <p>個人情緒人資動不了也不該動，<b>「某店的結構性問題」才是人資能動手的層級</b>。這個訊號只有在有跨店、跨時間資料時才浮得出來。</p>
+      </div>
+      <div class="mech">
+        <span class="lab">機制三 · 最關鍵</span>
+        <h3>疊在你們已經有的營運資料上</h3>
+        <p>心情本身只說「不好」。疊上<b>結帳日、檔期、排班</b>才會說出「為什麼」。你們本來就在記這些日期，這個疊圖幾乎不花額外成本。</p>
+        <p>它把「大家最近很累」變成 <b>「月底那五天全店塌下來，六家店都一樣」</b>——前者只能拿去開會講，後者可以拿去改排班。</p>
       </div>
     </div>
+    <div class="alarm">
+      <h3>但是，這一段要先講清楚</h3>
+      <p><b>如果警示推播出去之後沒有人被要求做任何事，不要做這個案子。</b>這不是工程問題，是管理承諾問題。原案寫了「連續 3 日暴風雨 ≥ 40% 推播店長與人資」，方向對，但推播之後呢？誰要在幾天內做什麼、要不要回報？沒有這一段，上面三個機制一個都不會發生。</p>
+      <p>而且這種情況<b>比不做更糟</b>。同仁填了三個月、什麼都沒改變，之後你們任何內部調查都不會有人認真填。燒掉的不是這個功能，是同一批人下一次的信任——而信任只能燒一次。</p>
+    </div>
+  </section>
 
-    <div class="screen">
-      <div class="screen-cap"><span class="screen-num">B</span>
-        <span class="screen-name">今天已記錄</span><span class="screen-role">一般同仁</span></div>
-      <div class="phone">
-        <div class="bar"><span>9:41</span><span>winex-honor</span></div>
-        <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">心晴</div><div class="tab ghost">我的</div></div>
-        <div class="body">
-          <p class="ask">今天已記錄</p>
-          <p class="ask-sub">9 月 10 日　想改隨時可以改</p>
-          <div class="done" id="doneCard">
-            <span class="ic" id="doneIcon"></span>
-            <span class="done-tag">今天的天氣</span>
-            <span class="done-name" id="doneName">陣雨</span>
-            <span class="done-time">上午 9:12 記錄</span>
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">九宮格計畫矩陣</h2>
+    <p class="sec-sub">中心是核心目標，外圈八格是工作項。<b style="color:var(--accent)">藍色</b>是原案就有的四項，<b style="color:var(--extra)">紫色</b>是我建議補上的四項。點任一格看細節。</p>
+    <div class="nine" id="nine"></div>
+    <div class="detail" id="detail"></div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">畫面草樣</h2>
+    <p class="sec-sub">三個畫面都能實際操作。同仁頁可以點天氣、店長頁可以疊上結帳日、人資頁可以切換店別。</p>
+    <div class="screens">
+
+      <div class="screen">
+        <div class="screen-cap"><span class="screen-num">A</span>
+          <span class="screen-name">心晴</span><span class="screen-role">一般同仁</span>
+          <span class="live">可操作</span></div>
+        <div class="phone">
+          <div class="bar"><span>9:41</span><span>winex-honor</span></div>
+          <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">心晴</div><div class="tab ghost">我的</div></div>
+          <div class="pbody" id="staffBody"></div>
+          <div class="foot">本頁僅本人看得到，主管只看得到全店的天氣</div>
+        </div>
+      </div>
+
+      <div class="screen">
+        <div class="screen-cap"><span class="screen-num">B</span>
+          <span class="screen-name">本店天氣</span><span class="screen-role">店長</span>
+          <span class="live">可操作</span></div>
+        <div class="phone">
+          <div class="bar"><span>9:41</span><span>winex-honor</span></div>
+          <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">本店天氣</div><div class="tab ghost">我的</div></div>
+          <div class="pbody">
+            <div class="chart-h"><h2>忠孝店</h2><em>近 30 天</em></div>
+            <div class="delta" id="mgrKpi"></div>
+            <div class="plotwrap" id="plotwrap">
+              <div class="band" id="band"><span>結帳期</span></div>
+              <div class="plot" id="plot"></div>
+            </div>
+            <div class="xaxis" id="xaxis"></div>
+            <button class="toggle" id="tgl" aria-pressed="false">
+              <span class="sw-ui"></span><span>疊上結帳日</span></button>
+            <div class="finding" id="finding"></div>
+            <div class="gap-key"><i></i>當日填答未達 3 人，不顯示</div>
+            <div class="action">
+              <span class="h">⚑ 已觸發警示　<span id="alertDates"></span></span>
+              連續 3 日暴風雨達 40%。系統只通知，不指名任何人。
+              <ol>
+                <li>店長 72 小時內回覆一件本週會調整的事</li>
+                <li>人資同步檢視該店排班與業績壓力</li>
+                <li>30 日後回看天氣有沒有改善</li>
+              </ol>
+              <div style="margin-top:8px;color:var(--ink-3)">↑ 這段是<b style="color:var(--extra)">計畫外新增</b>的回應機制（第 8 格）</div>
+            </div>
           </div>
-          <button class="redo">改成別的天氣</button>
+          <div class="foot">只有全店統計，沒有個人紀錄</div>
         </div>
-        <div class="foot">本頁僅本人看得到，主管只看得到全店的天氣</div>
+      </div>
+
+      <div class="screen">
+        <div class="screen-cap"><span class="screen-num">C</span>
+          <span class="screen-name">各店天氣</span><span class="screen-role">人資</span>
+          <span class="live">可操作</span></div>
+        <div class="phone">
+          <div class="bar"><span>9:41</span><span>winex-honor</span></div>
+          <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">各店天氣</div><div class="tab ghost">我的</div></div>
+          <div class="pbody">
+            <div class="chart-h"><h2>六家店</h2><em>近 7 日暴風雨占比</em></div>
+            <p style="font-size:12px;color:var(--ink-3);margin:9px 0 13px;line-height:1.6">
+              衡量的是<b style="color:var(--ink)">店的環境</b>，不是店長的表現。排序高不代表帶人差，代表那家店現在需要看一下。</p>
+            <div id="hrList"></div>
+            <div class="sdetail" id="hrDetail"></div>
+            <div style="margin-top:13px;font-size:12px;color:var(--ink-3);line-height:1.6">
+              這一頁是<b style="color:var(--extra)">計畫外新增</b>（第 7 格）。原案只做到本店。</div>
+          </div>
+          <div class="foot">只有全店統計，沒有個人紀錄</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">分期時程</h2>
+    <p class="sec-sub">原案的四項全部留在第一期。新增的四項排在後面，因為它們都需要第一期先累積出資料才有意義。</p>
+    <div class="phases">
+      <div class="phase">
+        <span class="n">第一期</span>
+        <h3>先把感測器架好</h3>
+        <span class="when">現在 — 上線後持續</span>
+        <ul>
+          <li><b>資料層</b>：mood_log、兩個 view、RLS、隱私回歸測試<span class="st done2">SQL 已寫</span></li>
+          <li><b>同仁記錄頁</b>：四顆按鈕、一次點擊、當天可覆寫<span class="st">待 LIFF 宿主</span></li>
+          <li><b>本店天氣圖</b>：近 30 天，填答未達 3 人畫缺口<span class="st">待 LIFF 宿主</span></li>
+          <li><b>暴風雨警示</b>：連續 3 日 ≥ 40% 推播<span class="st">待排程</span></li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="n">第二期</span>
+        <h3>讓資料開口說話</h3>
+        <span class="when">第一期上線 + 約 3 週</span>
+        <ul>
+          <li><b>營運事件疊圖</b>：結帳日、檔期、排班標在時間軸上</li>
+          <li><b>跨店比較</b>：人資端排序與趨勢</li>
+          <li><b>參與率監測</b>：只看店層級趨勢，不看誰沒填</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="n">第三期</span>
+        <h3>驗收，或者收掉</h3>
+        <span class="when">第一期上線 + 約 3 個月</span>
+        <ul>
+          <li><b>回應機制正式上線</b>：警示後 72 小時的動作與回報</li>
+          <li><b>成效檢視</b>：拿下面那三個數字對答案</li>
+          <li><b>沒過就收掉</b>：與其留一個沒人理的頁面，不如誠實停掉</li>
+        </ul>
       </div>
     </div>
+  </section>
 
-    <div class="screen">
-      <div class="screen-cap"><span class="screen-num">C</span>
-        <span class="screen-name">本店天氣圖</span><span class="screen-role">店長 · 人資</span></div>
-      <div class="phone">
-        <div class="bar"><span>9:41</span><span>winex-honor</span></div>
-        <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">本店天氣</div><div class="tab ghost">我的</div></div>
-        <div class="body">
-          <div class="chart-h"><h2>忠孝店</h2><em>近 30 天</em></div>
-          <div class="plot" id="plot"></div>
-          <div class="xaxis"><span>8/12</span><span>8/21</span><span>8/31</span><span>9/10</span></div>
-          <div class="gap-key"><i></i>當日填答未達 3 人，不顯示</div>
-          <div class="note"><span>⚑</span><span><b>連續 3 日暴風雨達 40%</b><br>9/1–9/3 已通知店長與人資（任務 5，尚未實作）</span></div>
-        </div>
-        <div class="foot">只有全店統計，沒有個人紀錄</div>
+  <section>
+    <h2 class="sec">三個月後拿什麼對答案</h2>
+    <p class="sec-sub">先把成功條件寫死，否則半年後只會剩下「好像有比較好」這種說法。</p>
+    <div class="scroll">
+      <table class="succ">
+        <thead><tr><th>指標</th><th>合格線</th><th>不合格代表什麼</th></tr></thead>
+        <tbody>
+          <tr><td><b>填答率</b></td><td>連續三個月 ≥ 70%</td><td>同仁不信任、或覺得填了沒用。先修這個，其他都免談。</td></tr>
+          <tr><td><b>警示後改善</b></td><td>觸發後 30 日內該店暴風雨占比下降</td><td>警示有推、但沒有人真的動。第 8 格失敗。</td></tr>
+          <tr><td><b>流失率差異</b></td><td>有介入的店優於無介入的店</td><td>整套假設不成立，該收掉。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="cols2">
+      <div class="panel out">
+        <h3>維持不做（沿用原案）</h3>
+        <ul>
+          <li><b>我有話要說</b>　一旦要打字，就從「不用思考的按鈕」變成「要交作業的表單」，填答率會在兩週內垮掉。</li>
+          <li><b>匿名表單</b>　匿名承諾一旦被懷疑就沒救了，而它必然會被懷疑。現在的做法更乾淨：不收內容，就沒有內容可以外洩。</li>
+          <li><b>語意分析</b>　同仁會合理懷疑內容被讀取。加這個，前面所有隱私設計的說服力歸零。</li>
+        </ul>
+        <p style="margin:0;font-size:13.5px;color:var(--ink-3);line-height:1.7">原案把這三項排除是對的，我沒有偷渡進來。</p>
+      </div>
+      <div class="panel">
+        <h3>還沒決定的</h3>
+        <ul>
+          <li><b>業績與排班資料拿得到嗎</b>　是 ERP 裡的，還是人工維護的 Excel？這決定機制三是自動疊圖還是人工對照，差別很大。</li>
+          <li><b>「暴風雨」這個詞</b>　會不會讓人不敢點？改字不影響 enum，只換顯示文字。</li>
+          <li><b>誰負責回應警示</b>　第 8 格需要一個真的有權限調排班的人，不能只是收到通知。</li>
+          <li><b>LIFF 宿主</b>　winex-honor 目前不存在，感謝章分頁是照描述畫的示意。</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="specs">
-    <div class="spec"><h3>觸控區</h3><p>四顆按鈕各約 <b>150×112px</b>，字級 20px、圖示 42px。以 45–60 歲的手指與老花設定，不是以設計稿好看設定。</p></div>
-    <div class="spec"><h3>一次點擊</h3><p>點下去就寫入並切到 B 畫面，<b>沒有確認對話框、沒有送出鈕</b>。開啟到結束一次點擊，這是「十秒內」唯一能達成的做法。</p></div>
-    <div class="spec"><h3>可覆寫</h3><p>當天再進來直接顯示 B，按「改成別的天氣」回到 A。同一天只會有一筆，<b>不會累積成兩筆</b>。</p></div>
-    <div class="spec"><h3>隱私聲明</h3><p>固定在分頁底部、不隨捲動消失。文案就是規格裡那一句，<b>不改寫、不縮短</b>。</p></div>
-    <div class="spec"><h3>圖上的缺口</h3><p>填答未達 3 人的那一天，資料庫<b>整列不回傳</b>。所以畫成斜線缺口，不能畫成 0 —— 畫成 0 會被讀成「那天沒人上班」。</p></div>
-    <div class="spec"><h3>店長看不到人</h3><p>C 畫面沒有名字、頭像、單筆紀錄，也沒有可往下鑽的入口。這不是靠前端不畫，是資料庫那層就<b>沒有這條路</b>。</p></div>
-  </section>
-
-  <section class="open">
-    <h2>這份草樣還沒回答的</h2>
-    <ul>
-      <li><b>掛在哪裡</b>　winex-honor 的 LIFF 目前不存在，「感謝章」分頁是照描述畫的示意，不是實際畫面。</li>
-      <li><b>店長怎麼進來</b>　C 是同一支 LIFF 的分頁，還是獨立入口？草樣先畫成同一支。</li>
-      <li><b>要不要顯示填答人數</b>　目前圖上只有比例。看得到人數，就看得到誰沒填。</li>
-      <li><b>暴風雨的措辭</b>　會不會讓人不敢點？若要改成別的說法，enum 值不用動，只換顯示文字。</li>
-    </ul>
-  </section>
 </div>
 
 <script>
+/* ---------------- 圖示 ---------------- */
 var ICONS = {
   sunny:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="24" cy="24" r="9" fill="currentColor" stroke="none"></circle><path d="M24 5v5M24 38v5M5 24h5M38 24h5M10.6 10.6l3.5 3.5M33.9 33.9l3.5 3.5M37.4 10.6l-3.5 3.5M14.1 33.9l-3.5 3.5"></path></svg>',
   cloudy:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="16" cy="15" r="6" fill="currentColor" stroke="none"></circle><path d="M16 4v3M5 15h3M8.4 7.4l2.1 2.1M23.6 7.4L21.5 9.5"></path><path d="M35 37H16a7.5 7.5 0 0 1-.6-15 10.5 10.5 0 0 1 20 2.2A6.4 6.4 0 0 1 35 37Z" fill="currentColor" stroke="none"></path></svg>',
@@ -240,65 +483,331 @@ var ICONS = {
   storm:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M34 26H15a7.5 7.5 0 0 1-.6-15 10.5 10.5 0 0 1 20 2.2A6.4 6.4 0 0 1 34 26Z" fill="currentColor" stroke="none"></path><path d="M26 29l-9 9h7l-3 8 9-9h-7l3-8Z" fill="currentColor" stroke="none"></path><path d="M13 32l-2 6M37 32l-2 6"></path></svg>'
 };
 var MOODS = [
-  {k:'sunny',  label:'晴',     c:'var(--sunny)'},
-  {k:'cloudy', label:'多雲',   c:'var(--cloudy)'},
-  {k:'rain',   label:'陣雨',   c:'var(--rain)'},
-  {k:'storm',  label:'暴風雨', c:'var(--storm)'}
+  {k:'sunny', label:'晴',    c:'var(--sunny)'},
+  {k:'cloudy',label:'多雲',  c:'var(--cloudy)'},
+  {k:'rain',  label:'陣雨',  c:'var(--rain)'},
+  {k:'storm', label:'暴風雨',c:'var(--storm)'}
 ];
-
-var grid = document.getElementById('moods');
-grid.innerHTML = MOODS.map(function(m){
-  return '<button class="mood" style="--c:' + m.c + '" data-k="' + m.k + '" aria-pressed="false">' +
-         '<span class="ic">' + ICONS[m.k] + '</span><span class="lb">' + m.label + '</span></button>';
-}).join('');
-
-var doneCard = document.getElementById('doneCard');
-var doneIcon = document.getElementById('doneIcon');
-var doneName = document.getElementById('doneName');
-
-function showDone(k){
-  var m = MOODS.filter(function(x){ return x.k === k; })[0];
-  doneCard.style.setProperty('--c', m.c);
-  doneIcon.innerHTML = ICONS[k];
-  doneName.textContent = m.label;
-}
-showDone('rain');
-doneCard.style.setProperty('--c', 'var(--rain)');
-
-grid.addEventListener('click', function(e){
-  var b = e.target.closest('.mood');
-  if(!b) return;
-  var all = grid.querySelectorAll('.mood');
-  for(var i = 0; i < all.length; i++){
-    all[i].setAttribute('aria-pressed', all[i] === b ? 'true' : 'false');
-  }
-  showDone(b.getAttribute('data-k'));
-});
-
-// 近 30 天：[總數, 晴, 多雲, 陣雨, 暴風雨]；null = 當日填答未達 3 人，view 整列不回傳
-var DAYS = [
-  [3,1,1,1,0],[9,4,3,2,0],[10,5,3,2,0],null,[8,3,3,2,0],
-  [11,5,4,1,1],[9,3,4,2,0],[10,4,3,2,1],[7,2,3,1,1],[12,5,4,2,1],
-  null,[9,3,3,2,1],[10,3,4,2,1],[8,2,3,2,1],[11,4,4,2,1],
-  [9,2,3,3,1],[10,3,3,3,1],[8,2,2,3,1],[9,2,3,3,1],[10,2,3,3,2],
-  [10,1,3,2,4],[9,1,2,2,4],[10,1,2,3,4],[9,2,3,2,2],[11,3,4,2,2],
-  null,[10,4,3,2,1],[9,3,4,1,1],[10,4,4,1,1],[11,5,4,1,1]
-];
-var FLAG = [20,21,22];
 var COLORS = ['var(--sunny)','var(--cloudy)','var(--rain)','var(--storm)'];
 
-document.getElementById('plot').innerHTML = DAYS.map(function(d, i){
+/* ---------------- 九宮格 ---------------- */
+var PLAN = [
+ {t:'每日心情記錄', s:'四顆按鈕，一人一天一筆', x:false,
+  why:'這是整套系統唯一的感測器，它的唯一任務是不造成負擔。一旦需要打字或思考，填答率會在兩週內崩掉。',
+  how:'四顆大按鈕、一次點擊即寫入、當天可覆寫。不問原因、不收任何文字。',
+  cost:'資料層已完成，前端約 1 天。',
+  risk:'「暴風雨」這個詞可能讓人不敢點，需要在現場試詞。'},
+
+ {t:'隱私架構', s:'k ≥ 3、RLS、view 隔離', x:false,
+  why:'這是同仁願意誠實點的唯一前提。只要有一個人相信主管看得到個人紀錄，全店的資料就同時失真。',
+  how:'mood_log 上只有「本人自讀」一條 RLS，沒有給店長或人資的任何 policy；聚合走獨立 view，當日填答未達 3 人整列不回傳。任何角色都不存在查詢個人的路徑。',
+  cost:'已完成，含一支隱私回歸測試。',
+  risk:'service_role 金鑰若流到前端會繞過一切。這靠部署紀律，不是靠 SQL。'},
+
+ {t:'本店天氣圖', s:'近 30 天趨勢', x:false,
+  why:'店長需要看到的是趨勢，不是今天。單日永遠是雜訊。',
+  how:'近 30 天堆疊長條圖，資料來源限 v_mood_store。填答未達 3 人的日子畫成缺口，不畫成 0——畫成 0 會被讀成「那天沒人上班」。',
+  cost:'前端約 1 天。',
+  risk:'只給圖不給解讀，店長會看過就算。所以必須接第 8 格。'},
+
+ {t:'暴風雨警示', s:'連續 3 日 ≥ 40%', x:false,
+  why:'沒有人會每天主動打開儀表板。訊號必須自己找上門。',
+  how:'連續 3 日該店暴風雨占比 ≥ 40% 時推播店長與人資，內容只講「本店」，不指名任何人。',
+  cost:'一支排程加一個 security definer 函式，約半天。排程沒有 auth.uid()，不能走 v_mood_store。',
+  risk:'門檻訂太鬆會變成狼來了，訂太緊會漏掉。上線後前兩個月要回頭校準。'},
+
+ {core:true, t:'核心目標', s:'把「大家最近很累」變成可操作的營運問題，並在人真的走之前看見訊號'},
+
+ {t:'營運事件疊圖', s:'結帳日、檔期、排班', x:true,
+  why:'價值最高、成本最低的一項。心情本身只說「不好」，疊上結帳日與檔期才會說出「為什麼」。',
+  how:'在時間軸上標出結帳期與活動檔期，讓相關性自己浮出來。你們的業績總表本來就在記這些日期。',
+  cost:'日期若能自動取得約 1 天；只能人工維護的話，做成一張可編輯的事件表，約 1.5 天。',
+  risk:'相關不等於因果。它的用途是「指出該問哪個問題」，不是「證明誰有問題」。'},
+
+ {t:'跨店比較', s:'人資視角，排序與趨勢', x:true,
+  why:'個人情緒人資動不了也不該動，但「某店持續比別店差」是結構問題，那是人資唯一能動手的層級。',
+  how:'人資端列出各店近 7 日暴風雨占比與趨勢方向並排序。仍然只有聚合，沒有個人。',
+  cost:'view 擴充加一頁前端，約 1 天。',
+  risk:'會被當成店長考績表。畫面上要寫明它衡量的是環境不是人，否則店長會開始壓填答。'},
+
+ {t:'回應機制', s:'警示之後，誰做什麼', x:true, key:true,
+  why:'這一格決定整個案子成不成。警示推播出去之後如果沒有人被要求做任何事，前面七格全部作廢，而且比不做更糟。',
+  how:'定義警示後 72 小時內的動作：店長與人資各自要做什麼、是否需要回報、回報去哪。系統只負責記錄「這次警示有沒有被處理」。',
+  cost:'系統面很小，一張處理紀錄表。真正的成本是管理層的承諾。',
+  risk:'這是唯一一格工程做不到的。沒有這格，就不要做這個案子。'},
+
+ {t:'參與率監測', s:'填答率本身是訊號', x:true,
+  why:'一家店的填答率從八成掉到兩成，那件事比任何一天的天氣都重要。',
+  how:'只在人資端呈現店層級的填答率趨勢，不呈現「誰沒填」。',
+  cost:'沿用同一個 view，約半天。',
+  risk:'一旦填答率變成店長的 KPI，就會出現集體代填。所以只給人資看趨勢，不設目標值。'}
+];
+
+var nine = document.getElementById('nine');
+var detail = document.getElementById('detail');
+nine.innerHTML = PLAN.map(function(p, i){
+  if(p.core){
+    return '<div class="cell core"><span class="tag">核心</span>' +
+           '<span class="t">' + p.t + '</span><span class="s">' + p.s + '</span></div>';
+  }
+  return '<button class="cell' + (p.x ? ' x' : '') + '" data-i="' + i + '" aria-pressed="false">' +
+         '<span class="tag">' + (p.x ? (p.key ? '計畫外 · 關鍵' : '計畫外') : '計畫內') + '</span>' +
+         '<span class="t">' + p.t + '</span><span class="s">' + p.s + '</span></button>';
+}).join('');
+
+function showDetail(i){
+  var p = PLAN[i];
+  detail.innerHTML =
+    '<div class="head"><h3>' + p.t + '</h3>' +
+    '<span class="chip' + (p.x ? ' x' : '') + '">' +
+      (p.x ? (p.key ? '計畫外新增 · 關鍵' : '計畫外新增') : '原案已有') + '</span></div>' +
+    '<dl class="dl">' +
+      '<div><dt>為什麼要有</dt><dd>' + p.why + '</dd></div>' +
+      '<div><dt>怎麼做</dt><dd>' + p.how + '</dd></div>' +
+      '<div><dt>成本</dt><dd>' + p.cost + '</dd></div>' +
+      '<div><dt>風險</dt><dd>' + p.risk + '</dd></div>' +
+    '</dl>';
+  var cells = nine.querySelectorAll('.cell[data-i]');
+  for(var k = 0; k < cells.length; k++){
+    cells[k].setAttribute('aria-pressed', cells[k].getAttribute('data-i') === String(i) ? 'true' : 'false');
+  }
+}
+nine.addEventListener('click', function(e){
+  var b = e.target.closest('.cell[data-i]');
+  if(b) showDetail(parseInt(b.getAttribute('data-i'), 10));
+});
+showDetail(7); /* 預設打開「回應機制」 */
+
+/* ---------------- 同仁頁 ---------------- */
+var staffBody = document.getElementById('staffBody');
+function renderAsk(){
+  staffBody.innerHTML =
+    '<p class="ask">今天的天氣如何？</p>' +
+    '<p class="ask-sub">9 月 10 日　點一下就好，不用打字</p>' +
+    '<div class="moods">' + MOODS.map(function(m){
+      return '<button class="mood" style="--c:' + m.c + '" data-k="' + m.k + '">' +
+             '<span class="ic">' + ICONS[m.k] + '</span><span class="lb">' + m.label + '</span></button>';
+    }).join('') + '</div>';
+}
+function renderDone(k){
+  var m = MOODS.filter(function(x){ return x.k === k; })[0];
+  staffBody.innerHTML =
+    '<p class="ask">今天已記錄</p>' +
+    '<p class="ask-sub">9 月 10 日　想改隨時可以改</p>' +
+    '<div class="done" style="--c:' + m.c + '">' +
+      '<span class="ic">' + ICONS[k] + '</span>' +
+      '<span class="done-tag">今天的天氣</span>' +
+      '<span class="done-name">' + m.label + '</span>' +
+      '<span class="done-time">剛剛記錄</span>' +
+    '</div>' +
+    '<button class="redo" id="redo">改成別的天氣</button>' +
+    '<div class="streak">你已經連續記錄 <b>18 天</b>。這些紀錄只有你看得到，主管看到的是全店的比例。</div>';
+}
+staffBody.addEventListener('click', function(e){
+  var b = e.target.closest('.mood');
+  if(b){ renderDone(b.getAttribute('data-k')); return; }
+  if(e.target.closest('#redo')) renderAsk();
+});
+renderAsk();
+
+/* ---------------- 資料產生（示意值，可重現） ---------------- */
+function mulberry32(a){
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function split(n, sh){
+  var raw = sh.map(function(s){ return s * n; });
+  var f = raw.map(Math.floor);
+  var rem = n - f.reduce(function(a,b){ return a + b; }, 0);
+  var ord = raw.map(function(v,i){ return {i:i, r:v - Math.floor(v)}; })
+               .sort(function(a,b){ return b.r - a.r; });
+  for(var k = 0; k < rem; k++) f[ord[k].i]++;
+  return f;
+}
+var CLOSE_FROM = 13, CLOSE_TO = 19;   /* 8/25 – 8/31 結帳期 */
+var START = new Date(2026, 7, 12);    /* 8/12 */
+function dlabel(i){
+  var d = new Date(START.getTime() + i * 86400000);
+  return (d.getMonth() + 1) + '/' + d.getDate();
+}
+function genStore(cfg){
+  var rnd = mulberry32(cfg.seed), out = [];
+  for(var i = 0; i < 30; i++){
+    var closing = (i >= CLOSE_FROM && i <= CLOSE_TO);
+    var forced = cfg.alert && i >= 17 && i <= 19;
+    var n = cfg.lo + Math.floor(rnd() * (cfg.hi - cfg.lo + 1));
+    if(cfg.thin && rnd() < 0.20 && !forced) n = 1 + Math.floor(rnd() * 2);
+    if(n < 3){ out.push(null); continue; }
+    var storm = cfg.base + cfg.trend * i + (closing ? cfg.close - cfg.base : 0) + (rnd() - 0.5) * 0.07;
+    storm = Math.max(0.02, Math.min(0.5, storm));
+    var rain = 0.17 + (rnd() - 0.5) * 0.07 + storm * 0.3;
+    var cloudy = 0.30 + (rnd() - 0.5) * 0.09;
+    var sunny = Math.max(0.06, 1 - storm - rain - cloudy);
+    var tot = sunny + cloudy + rain + storm;
+    var c = split(n, [sunny/tot, cloudy/tot, rain/tot, storm/tot]);
+    if(forced){
+      var need = Math.ceil(n * 0.42), diff = need - c[3];
+      for(var t = 0; t < diff; t++){
+        if(c[0] > 0) c[0]--; else if(c[1] > 0) c[1]--; else c[2]--;
+      }
+      if(diff > 0) c[3] = need;
+    }
+    out.push({n:n, c:c});
+  }
+  return out;
+}
+var STORES = [
+  {name:'忠孝店', seed:1101, base:.11, close:.33, trend:.0035, lo:8,  hi:12, alert:true},
+  {name:'信義店', seed:2202, base:.10, close:.19, trend:.0012, lo:7,  hi:11},
+  {name:'板橋店', seed:3303, base:.14, close:.21, trend:-.0022, lo:6, hi:10},
+  {name:'台中店', seed:4404, base:.09, close:.16, trend:.0002, lo:5,  hi:9},
+  {name:'台南店', seed:5505, base:.12, close:.18, trend:.0008, lo:3,  hi:7, thin:true},
+  {name:'高雄店', seed:6606, base:.08, close:.14, trend:-.0010, lo:6, hi:10}
+];
+STORES.forEach(function(s){ s.days = genStore(s); });
+
+function ratio(d){ return d ? d.c[3] / d.n : null; }
+function windowRatio(days, from, to){
+  var st = 0, tt = 0;
+  for(var i = from; i <= to; i++){ if(days[i]){ st += days[i].c[3]; tt += days[i].n; } }
+  return tt ? st / tt : null;
+}
+function alertRuns(days){
+  var runs = [], run = [];
+  for(var i = 0; i < 30; i++){
+    var r = ratio(days[i]);
+    if(r !== null && r >= 0.4){ run.push(i); }
+    else { if(run.length >= 3) runs = runs.concat(run); run = []; }
+  }
+  if(run.length >= 3) runs = runs.concat(run);
+  return runs;
+}
+function pct(v){ return v === null ? '–' : Math.round(v * 100) + '%'; }
+
+/* ---------------- 店長頁 ---------------- */
+var MGR = STORES[0];
+var flags = alertRuns(MGR.days);
+
+document.getElementById('plot').innerHTML = MGR.days.map(function(d, i){
   if(!d) return '<div class="col"><div class="gap"></div></div>';
   var segs = '';
-  for(var j = 4; j >= 1; j--){
-    if(d[j] > 0){
-      segs += '<div class="seg" style="height:' + (d[j] / d[0] * 100).toFixed(2) +
-              '%;background:' + COLORS[j-1] + '"></div>';
+  for(var j = 3; j >= 0; j--){
+    if(d.c[j] > 0){
+      segs += '<div class="seg" style="height:' + (d.c[j] / d.n * 100).toFixed(2) +
+              '%;background:' + COLORS[j] + '"></div>';
     }
   }
-  var flag = FLAG.indexOf(i) > -1 ? ' flag' : '';
-  return '<div class="col' + flag + '">' + segs + '</div>';
+  return '<div class="col' + (flags.indexOf(i) > -1 ? ' flag' : '') + '">' + segs + '</div>';
 }).join('');
+
+document.getElementById('xaxis').innerHTML =
+  [0, 9, 19, 29].map(function(i){ return '<span>' + dlabel(i) + '</span>'; }).join('');
+
+var band = document.getElementById('band');
+band.style.left  = (CLOSE_FROM / 30 * 100) + '%';
+band.style.width = ((CLOSE_TO - CLOSE_FROM + 1) / 30 * 100) + '%';
+
+var last7 = windowRatio(MGR.days, 23, 29);
+var prev7 = windowRatio(MGR.days, 16, 22);
+var deltaPts = Math.round((last7 - prev7) * 100);
+document.getElementById('mgrKpi').innerHTML =
+  '<div class="kpi"><span class="k">近 7 日暴風雨</span><span class="v">' + pct(last7) + '</span>' +
+    '<span class="d ' + (deltaPts > 0 ? 'up' : 'down') + '">' +
+    (deltaPts > 0 ? '▲ 高於' : '▼ 低於') + '前 7 日 ' + Math.abs(deltaPts) + ' 個百分點</span></div>' +
+  '<div class="kpi"><span class="k">填答率</span><span class="v">83%</span>' +
+    '<span class="d down">▼ 較上月 4 個百分點</span></div>';
+
+var closeR = windowRatio(MGR.days, CLOSE_FROM, CLOSE_TO);
+var otherSt = 0, otherTt = 0;
+MGR.days.forEach(function(d, i){
+  if(d && (i < CLOSE_FROM || i > CLOSE_TO)){ otherSt += d.c[3]; otherTt += d.n; }
+});
+var otherR = otherSt / otherTt;
+var finding = document.getElementById('finding');
+var TXT_OFF = '近 30 天的暴風雨比例集中在中段。<b>單看這張圖，看不出來為什麼。</b>把結帳日疊上去試試。';
+var TXT_ON  = '結帳期（' + dlabel(CLOSE_FROM) + '–' + dlabel(CLOSE_TO) + '）暴風雨占比 <b>' +
+              pct(closeR) + '</b>，其餘日子 <b>' + pct(otherR) + '</b>。' +
+              '這不是誰的心理素質問題，是<b>月底那幾天的排班與結帳流程</b>。';
+finding.innerHTML = TXT_OFF;
+
+var tgl = document.getElementById('tgl');
+var plotwrap = document.getElementById('plotwrap');
+tgl.addEventListener('click', function(){
+  var on = tgl.getAttribute('aria-pressed') !== 'true';
+  tgl.setAttribute('aria-pressed', String(on));
+  plotwrap.classList.toggle('show', on);
+  finding.innerHTML = on ? TXT_ON : TXT_OFF;
+});
+
+document.getElementById('alertDates').textContent =
+  flags.length ? dlabel(flags[0]) + '–' + dlabel(flags[flags.length - 1]) : '';
+
+/* ---------------- 人資頁 ---------------- */
+var ranked = STORES.map(function(s){
+  var r7 = windowRatio(s.days, 23, 29);
+  var p7 = windowRatio(s.days, 16, 22);
+  return {s:s, r7:r7, dir:(r7 - p7)};
+}).sort(function(a, b){ return b.r7 - a.r7; });
+
+document.getElementById('hrList').innerHTML = ranked.map(function(row, idx){
+  var spark = row.s.days.map(function(d){
+    var r = ratio(d);
+    if(r === null) return '<i class="nil"></i>';
+    return '<i style="height:' + Math.max(6, r / 0.5 * 100) + '%"></i>';
+  }).join('');
+  var hasAlert = alertRuns(row.s.days).length > 0;
+  var arrow = row.dir > 0.02 ? '<span class="ar up">▲</span>'
+            : row.dir < -0.02 ? '<span class="ar down">▼</span>'
+            : '<span class="ar" style="color:var(--ink-3)">–</span>';
+  return '<button class="srow" data-n="' + idx + '" aria-pressed="' + (idx === 0) + '">' +
+         '<span class="flagdot' + (hasAlert ? '' : ' off') + '"></span>' +
+         '<span class="nm">' + row.s.name + '</span>' +
+         '<span class="spark">' + spark + '</span>' +
+         '<span class="pc">' + pct(row.r7) + '</span>' + arrow + '</button>';
+}).join('');
+
+var hrDetail = document.getElementById('hrDetail');
+function showStore(idx){
+  var row = ranked[idx], s = row.s;
+  var mini = s.days.map(function(d){
+    if(!d) return '<div style="flex:1;height:100%;border:1px dashed var(--line);border-bottom:none;' +
+                  'background:repeating-linear-gradient(135deg,transparent 0 3px,var(--line) 3px 4px)"></div>';
+    var segs = '';
+    for(var j = 3; j >= 0; j--){
+      if(d.c[j] > 0){
+        segs += '<div style="height:' + (d.c[j] / d.n * 100).toFixed(2) +
+                '%;background:' + COLORS[j] + '"></div>';
+      }
+    }
+    return '<div style="flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end">' +
+           segs + '</div>';
+  }).join('');
+  var runs = alertRuns(s.days);
+  var note = runs.length
+    ? '本月<b>觸發過警示</b>（' + dlabel(runs[0]) + '–' + dlabel(runs[runs.length - 1]) + '）。'
+    : '本月未觸發警示。';
+  var trend = row.dir > 0.02 ? '近七日<b>正在惡化</b>。'
+            : row.dir < -0.02 ? '近七日<b>正在改善</b>。' : '近七日大致持平。';
+  var thin = s.days.filter(function(d){ return !d; }).length;
+  var thinNote = thin ? ' 有 <b>' + thin + ' 天</b>因填答未達 3 人未顯示。' : '';
+  hrDetail.innerHTML =
+    '<div class="t">' + s.name + '　近 30 天</div>' +
+    '<div class="mini">' + mini + '</div>' +
+    '<div class="note2">' + note + trend + thinNote + '</div>';
+  var rows = document.querySelectorAll('.srow');
+  for(var k = 0; k < rows.length; k++){
+    rows[k].setAttribute('aria-pressed', rows[k].getAttribute('data-n') === String(idx) ? 'true' : 'false');
+  }
+}
+document.getElementById('hrList').addEventListener('click', function(e){
+  var b = e.target.closest('.srow');
+  if(b) showStore(parseInt(b.getAttribute('data-n'), 10));
+});
+showStore(0);
 </script>
 </body>
 </html>
