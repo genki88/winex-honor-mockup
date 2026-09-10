@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="winex-honor S1 心晴天氣圖：效益、九宮格計畫與可操作草樣">
+<meta name="description" content="winex-honor S1 心晴天氣圖：效益、九宮格計畫、感謝章提案與可操作草樣">
 <title>心晴天氣圖</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +15,10 @@
   --ink:#17212B; --ink-2:#4E6070; --ink-3:#7B8B99; --line:#D5DDE3;
   --accent:#286A88; --accent-soft:#E2EDF2; --accent-line:#A9CBDA;
   --extra:#6B4E8F; --extra-soft:#EEE8F5; --extra-line:#C4B0DC;
+  --honor:#B07314; --honor-soft:#FAF1DF; --honor-line:#E0C48A;
   --sunny:#E8981C; --cloudy:#93A6B6; --rain:#3D7DB3; --storm:#3D3B70;
   --warn:#B4432E; --warn-soft:#F7E6E1;
-  --good:#2E7D5B;
+  --good:#2E7D5B; --good-soft:#E4F1EA;
   --phone:#FBFCFD; --phone-line:#E3E9EE;
   --serif:"Noto Serif TC",Georgia,"Songti TC",serif;
   --sans:"Noto Sans TC",-apple-system,"Segoe UI","Microsoft JhengHei",sans-serif;
@@ -29,9 +30,10 @@
     --ink:#E6ECF1; --ink-2:#A5B5C2; --ink-3:#7A8C9A; --line:#2A353E;
     --accent:#68B4D4; --accent-soft:#17313D; --accent-line:#2E5C70;
     --extra:#B29BD8; --extra-soft:#241D33; --extra-line:#4A3D66;
+    --honor:#DFAF5C; --honor-soft:#2C2213; --honor-line:#584428;
     --sunny:#F0A83A; --cloudy:#8FA2B2; --rain:#5C9AD0; --storm:#7370B8;
     --warn:#E0806A; --warn-soft:#33201B;
-    --good:#63B692;
+    --good:#63B692; --good-soft:#16281F;
     --phone:#161E24; --phone-line:#26313A;
   }
 }
@@ -40,47 +42,76 @@
   --ink:#E6ECF1; --ink-2:#A5B5C2; --ink-3:#7A8C9A; --line:#2A353E;
   --accent:#68B4D4; --accent-soft:#17313D; --accent-line:#2E5C70;
   --extra:#B29BD8; --extra-soft:#241D33; --extra-line:#4A3D66;
+  --honor:#DFAF5C; --honor-soft:#2C2213; --honor-line:#584428;
   --sunny:#F0A83A; --cloudy:#8FA2B2; --rain:#5C9AD0; --storm:#7370B8;
   --warn:#E0806A; --warn-soft:#33201B;
-  --good:#63B692;
+  --good:#63B692; --good-soft:#16281F;
   --phone:#161E24; --phone-line:#26313A;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
   font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:44px 24px 80px;display:flex;flex-direction:column;gap:60px}
+.wrap{max-width:1180px;margin:0 auto;padding:44px 24px 80px;display:flex;flex-direction:column;gap:58px}
 section{display:flex;flex-direction:column;gap:22px}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-3);margin:0}
 h1{font-family:var(--serif);font-size:clamp(32px,5.4vw,50px);line-height:1.12;margin:8px 0 0;
   text-wrap:balance;letter-spacing:-.01em}
 h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-wrap:balance}
-.sec-sub{margin:-14px 0 0;color:var(--ink-2);font-size:15.5px;max-width:66ch}
+.sec-sub{margin:-14px 0 0;color:var(--ink-2);font-size:15.5px;max-width:68ch}
 .lede{margin:16px 0 0;max-width:58ch;color:var(--ink-2);font-size:17.5px}
 .status{margin-top:20px;display:inline-flex;align-items:flex-start;gap:10px;padding:9px 15px;
   border:1px solid var(--line);border-radius:13px;background:var(--surface-2);
-  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:56ch}
+  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-2);max-width:58ch}
 .status b{color:var(--ink);font-weight:500}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none;margin-top:8px}
 .rule{height:1px;background:var(--line);border:0;margin:0}
+p.para{margin:0;font-size:15.5px;color:var(--ink-2);line-height:1.8;max-width:70ch}
+p.para b{color:var(--ink)}
 
-/* ---- 效益 ---- */
 .mechs{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
 .mech{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px 22px 24px;
   display:flex;flex-direction:column;gap:10px}
 .mech .lab{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent)}
 .mech h3{margin:0;font-size:18.5px;line-height:1.4}
 .mech p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72}
-.mech .num{font-family:var(--serif);font-size:29px;color:var(--ink);line-height:1.2;
-  font-variant-numeric:tabular-nums}
+.mech p b{color:var(--ink)}
+.mech .num{font-family:var(--serif);font-size:29px;color:var(--ink);line-height:1.2}
 .mech .num small{font-size:14px;color:var(--ink-3);font-family:var(--sans);margin-left:6px}
 .alarm{border:1px solid var(--warn);border-left-width:4px;border-radius:0 14px 14px 0;
   background:var(--warn-soft);padding:20px 24px;display:flex;flex-direction:column;gap:8px}
 .alarm h3{margin:0;font-size:18px;color:var(--ink)}
 .alarm p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72;max-width:76ch}
 .alarm p b{color:var(--ink)}
+.caveat{border:1px solid var(--honor-line);border-left-width:4px;border-radius:0 14px 14px 0;
+  background:var(--honor-soft);padding:18px 22px;display:flex;flex-direction:column;gap:7px}
+.caveat h3{margin:0;font-size:17px}
+.caveat p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.74;max-width:74ch}
+.caveat p b{color:var(--ink)}
 
-/* ---- 九宮格 ---- */
+/* 感謝章 */
+.stampgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;max-width:820px}
+.stampchip{border:2px dashed var(--honor-line);border-radius:50%;aspect-ratio:1;display:flex;
+  align-items:center;justify-content:center;text-align:center;padding:12px;background:var(--honor-soft);
+  color:var(--honor);font-size:14px;font-weight:700;line-height:1.35}
+.story{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px 24px;
+  display:flex;flex-direction:column;gap:12px;max-width:74ch}
+.story .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--honor)}
+.story p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.85}
+.story p b{color:var(--ink)}
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.vsbox{border:1px solid var(--line);border-radius:14px;padding:19px 21px;display:flex;
+  flex-direction:column;gap:9px;background:var(--surface)}
+.vsbox.h{border-color:var(--honor-line);background:var(--honor-soft)}
+.vsbox.m{border-color:var(--accent-line);background:var(--accent-soft)}
+.vsbox .n{font-family:var(--mono);font-size:11px;letter-spacing:.09em}
+.vsbox.h .n{color:var(--honor)} .vsbox.m .n{color:var(--accent)}
+.vsbox h4{margin:0;font-size:16.5px}
+.vsbox ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
+.vsbox li{font-size:14px;color:var(--ink-2);line-height:1.65}
+.vsbox li b{color:var(--ink)}
+
+/* 九宮格 */
 .nine{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:780px}
 .cell{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px 15px 16px;
   text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;min-height:132px;
@@ -95,8 +126,7 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .cell.x:hover{border-color:var(--extra-line)}
 .cell .t{font-size:16px;font-weight:700;line-height:1.4}
 .cell .s{font-size:12.5px;color:var(--ink-3);line-height:1.55}
-.cell.core{background:var(--ink);border-color:var(--ink);color:var(--ground);cursor:default;
-  justify-content:center;gap:9px}
+.cell.core{background:var(--ink);border-color:var(--ink);cursor:default;justify-content:center;gap:9px}
 .cell.core .t{font-family:var(--serif);font-size:17px;color:#FFFFFF}
 .cell.core .s{color:#C6D2DB;font-size:12.5px}
 .cell.core .tag{border-color:#4A5C6B;color:#C6D2DB;background:transparent}
@@ -113,14 +143,33 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .dl dd{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.72}
 .dl dd b{color:var(--ink);font-weight:700}
 
-/* ---- phones ---- */
+/* 措辭切換 */
+.wordbar{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:17px 19px;
+  display:flex;flex-direction:column;gap:12px}
+.wordbar .h{font-size:14.5px;font-weight:700}
+.wordopts{display:flex;flex-wrap:wrap;gap:9px}
+.wopt{border:1.5px solid var(--line);border-radius:10px;background:var(--surface-2);padding:9px 13px;
+  font-family:inherit;color:var(--ink-2);cursor:pointer;font-size:13.5px;display:flex;
+  flex-direction:column;gap:3px;text-align:left;line-height:1.4}
+.wopt .nm{font-weight:700;color:var(--ink);font-size:13px}
+.wopt .pv{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.wopt:hover{border-color:var(--accent-line)}
+.wopt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wopt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.wopt[aria-pressed="true"] .pv{color:var(--accent)}
+.wordbar .why{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.7;max-width:78ch}
+.wordbar .why b{color:var(--ink)}
+
+/* phones */
 .screens{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start}
 .screen{display:flex;flex-direction:column;gap:11px;width:340px;flex:none}
-.screen-cap{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.screen-cap{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
 .screen-num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.1em}
 .screen-name{font-size:15px;font-weight:700}
 .screen-role{font-size:13px;color:var(--ink-3)}
 .live{font-family:var(--mono);font-size:10.5px;color:var(--good);border:1px solid var(--good);
+  border-radius:5px;padding:1px 6px}
+.prop{font-family:var(--mono);font-size:10.5px;color:var(--honor);border:1px solid var(--honor-line);
   border-radius:5px;padding:1px 6px}
 .phone{width:340px;height:700px;border:1px solid var(--phone-line);border-radius:26px;
   background:var(--phone);overflow:hidden;display:flex;flex-direction:column;
@@ -135,8 +184,10 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .pbody{flex:1;padding:20px 18px 6px;overflow-y:auto;display:flex;flex-direction:column}
 .foot{padding:10px 14px;border-top:1px solid var(--phone-line);background:var(--surface-2);flex:none;
   font-size:12.5px;line-height:1.5;color:var(--ink-2);text-align:center}
+.foot.h{background:var(--honor-soft);color:var(--honor)}
 .ask{font-size:21px;font-weight:700;margin:0 0 3px}
 .ask-sub{font-size:13.5px;color:var(--ink-3);margin:0 0 16px}
+.step{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--ink-3);margin:0 0 9px}
 
 .moods{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .mood{min-height:108px;border:2px solid var(--line);border-radius:16px;background:var(--surface);
@@ -144,24 +195,53 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
   cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s,transform .1s}
 .mood .ic{color:var(--c);display:block;width:40px;height:40px}
 .mood svg{width:40px;height:40px;display:block}
-.mood .lb{font-size:19px;font-weight:700}
+.mood .lb{font-size:18px;font-weight:700;text-align:center;line-height:1.25;padding:0 4px}
 .mood:hover{border-color:var(--c)}
 .mood:active{transform:scale(.97)}
 .mood:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-
 .done{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:22px;
   display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
 .done .ic{color:var(--c);display:block;width:54px;height:54px}
 .done svg{width:54px;height:54px;display:block}
 .done-tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-3)}
-.done-name{font-size:26px;font-weight:900;line-height:1.2}
+.done-name{font-size:25px;font-weight:900;line-height:1.25}
 .done-time{font-size:12.5px;color:var(--ink-3)}
 .redo{margin-top:14px;width:100%;min-height:54px;border:2px solid var(--accent);border-radius:14px;
   background:transparent;color:var(--accent);font-family:inherit;font-size:16.5px;font-weight:700;cursor:pointer}
 .redo:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.redo.h{border-color:var(--honor);color:var(--honor)}
 .streak{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);
   padding:12px 14px;font-size:12.5px;color:var(--ink-2);line-height:1.6}
 .streak b{color:var(--ink)}
+
+/* 感謝章手機 */
+.peer{width:100%;border:1.5px solid var(--line);border-radius:14px;background:var(--surface);
+  padding:11px 13px;display:flex;align-items:center;gap:12px;cursor:pointer;font-family:inherit;
+  color:var(--ink);text-align:left;margin-bottom:9px;min-height:62px}
+.peer:hover{border-color:var(--honor-line)}
+.peer:focus-visible{outline:3px solid var(--honor);outline-offset:2px}
+.av{width:38px;height:38px;border-radius:50%;background:var(--honor-soft);color:var(--honor);flex:none;
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;
+  border:1px solid var(--honor-line)}
+.peer .pn{font-size:17px;font-weight:700}
+.peer .pr{font-size:12px;color:var(--ink-3);display:block;font-weight:400}
+.stampbtn{width:100%;border:2px dashed var(--honor-line);border-radius:13px;background:var(--honor-soft);
+  padding:14px 15px;font-family:inherit;color:var(--honor);font-size:16.5px;font-weight:700;
+  cursor:pointer;margin-bottom:9px;text-align:left;min-height:58px}
+.stampbtn:hover{border-color:var(--honor);border-style:solid}
+.stampbtn:focus-visible{outline:3px solid var(--honor);outline-offset:2px}
+.sent{border:1px solid var(--honor-line);border-radius:16px;background:var(--honor-soft);padding:22px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.bigstamp{width:132px;height:132px;border:3px dashed var(--honor);border-radius:50%;display:flex;
+  align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--honor);
+  font-size:17px;font-weight:900;line-height:1.35}
+.sent .to{font-size:15px;color:var(--ink-2)}
+.sent .to b{color:var(--ink);font-size:17px}
+.quota{margin-top:13px;font-size:12.5px;color:var(--ink-3);text-align:center;line-height:1.6}
+.mine{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);
+  padding:13px 14px;font-size:12.5px;color:var(--ink-2);line-height:1.65}
+.mine b{color:var(--ink)}
+.mine .row{display:flex;justify-content:space-between;padding:3px 0}
 
 .chart-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .chart-h h2{font-size:18.5px;font-weight:700;margin:0}
@@ -173,7 +253,6 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .kpi .v{font-size:19px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.3}
 .kpi .d{font-size:11px;font-weight:700}
 .up{color:var(--warn)} .down{color:var(--good)}
-
 .plotwrap{position:relative;margin-top:15px}
 .band{position:absolute;top:0;bottom:0;background:var(--warn-soft);border-left:1px dashed var(--warn);
   border-right:1px dashed var(--warn);opacity:0;transition:opacity .2s;pointer-events:none}
@@ -203,10 +282,22 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .finding{margin-top:12px;font-size:12.5px;line-height:1.62;color:var(--ink-2);
   border-left:3px solid var(--line);padding:2px 0 2px 11px}
 .finding b{color:var(--ink)}
+.xlsx{margin-top:11px;border:1px dashed var(--line);border-radius:10px;padding:9px 11px;
+  font-size:11.5px;color:var(--ink-3);line-height:1.6}
+.xlsx b{color:var(--ink-2)}
 .action{margin-top:13px;border:1px solid var(--warn);border-radius:12px;background:var(--warn-soft);
-  padding:13px 14px;font-size:12.5px;line-height:1.62;color:var(--ink-2)}
+  padding:13px 14px;font-size:12.5px;line-height:1.65;color:var(--ink-2)}
+.action.ok{border-color:var(--good);background:var(--good-soft)}
 .action .h{font-weight:900;color:var(--ink);font-size:13px;display:block;margin-bottom:5px}
-.action ol{margin:6px 0 0;padding-left:17px;display:flex;flex-direction:column;gap:4px}
+.action ol{margin:7px 0 0;padding-left:17px;display:flex;flex-direction:column;gap:4px}
+.rep{margin-top:11px;width:100%;min-height:46px;border:2px solid var(--warn);border-radius:11px;
+  background:transparent;color:var(--warn);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
+.rep:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+.opt{width:100%;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);
+  padding:11px 12px;font-family:inherit;color:var(--ink);font-size:14px;cursor:pointer;
+  text-align:left;margin-top:7px;min-height:44px}
+.opt:hover{border-color:var(--warn)}
+.opt:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
 .gap-key{margin-top:11px;font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:7px}
 .gap-key i{width:13px;height:13px;display:block;flex:none;border:1px dashed var(--line);
   background:repeating-linear-gradient(135deg,transparent 0 3px,var(--line) 3px 4px)}
@@ -221,7 +312,7 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .spark{flex:1;height:30px;display:flex;align-items:flex-end;gap:1px}
 .spark i{flex:1;background:var(--storm);border-radius:1px;display:block;min-height:1px}
 .spark i.nil{background:var(--line);height:2px!important}
-.srow .pc{font-family:var(--mono);font-size:13px;font-weight:500;width:40px;text-align:right;
+.srow .pc{font-family:var(--mono);font-size:13px;width:40px;text-align:right;
   font-variant-numeric:tabular-nums;flex:none}
 .srow .ar{width:15px;text-align:center;font-size:13px;font-weight:900;flex:none}
 .flagdot{width:7px;height:7px;border-radius:50%;background:var(--warn);flex:none}
@@ -233,7 +324,6 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .sdetail .note2{margin-top:9px;font-size:12px;color:var(--ink-2);line-height:1.6}
 .sdetail .note2 b{color:var(--ink)}
 
-/* ---- phases ---- */
 .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(276px,1fr));gap:20px}
 .phase{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px 21px 22px;
   display:flex;flex-direction:column;gap:11px}
@@ -246,7 +336,6 @@ h2.sec{font-family:var(--serif);font-size:clamp(21px,2.6vw,27px);margin:0;text-w
 .st{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:5px;margin-left:5px;
   border:1px solid var(--line);color:var(--ink-3);white-space:nowrap}
 .st.done2{border-color:var(--good);color:var(--good)}
-
 .cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px}
 .panel{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px 24px;
   display:flex;flex-direction:column;gap:12px}
@@ -269,10 +358,10 @@ table.succ td b{color:var(--ink)}
 <div class="wrap">
 
   <header>
-    <p class="eyebrow">winex-honor / S1 · 草樣 v2</p>
+    <p class="eyebrow">winex-honor / S1 · 草樣 v3</p>
     <h1>心晴天氣圖</h1>
     <p class="lede">同仁每天點一下今天的天氣。按鈕本身沒有價值——價值在它連續記三個月之後，能不能讓你在人真的走之前看見訊號。</p>
-    <p class="status"><span class="dot"></span><span><b>這是草樣</b>　畫面可實際操作，但未接資料庫。圖上所有數字都是示意值。</span></p>
+    <p class="status"><span class="dot"></span><span><b>這是草樣</b>　四個畫面可實際操作，但未接資料庫。圖上所有數字都是示意值。</span></p>
   </header>
 
   <hr class="rule">
@@ -291,20 +380,68 @@ table.succ td b{color:var(--ink)}
         <span class="lab">機制二</span>
         <h3>指向管理變數，不指向個人</h3>
         <p>同樣的政策、同樣的季節、同樣的客層，A 店持續比 B 店差——那不是 A 店的人比較脆弱，是排班、業績壓力或帶人方式的差異。</p>
-        <p>個人情緒人資動不了也不該動，<b>「某店的結構性問題」才是人資能動手的層級</b>。這個訊號只有在有跨店、跨時間資料時才浮得出來。</p>
+        <p>個人情緒人資動不了也不該動，<b>「某店的結構性問題」才是人資能動手的層級</b>。</p>
       </div>
       <div class="mech">
         <span class="lab">機制三 · 最關鍵</span>
         <h3>疊在你們已經有的營運資料上</h3>
-        <p>心情本身只說「不好」。疊上<b>結帳日、檔期、排班</b>才會說出「為什麼」。你們本來就在記這些日期，這個疊圖幾乎不花額外成本。</p>
+        <p>心情本身只說「不好」。疊上<b>結帳日、檔期、排班</b>才會說出「為什麼」。</p>
         <p>它把「大家最近很累」變成 <b>「月底那五天全店塌下來，六家店都一樣」</b>——前者只能拿去開會講，後者可以拿去改排班。</p>
       </div>
     </div>
     <div class="alarm">
       <h3>但是，這一段要先講清楚</h3>
-      <p><b>如果警示推播出去之後沒有人被要求做任何事，不要做這個案子。</b>這不是工程問題，是管理承諾問題。原案寫了「連續 3 日暴風雨 ≥ 40% 推播店長與人資」，方向對，但推播之後呢？誰要在幾天內做什麼、要不要回報？沒有這一段，上面三個機制一個都不會發生。</p>
+      <p><b>如果警示推播出去之後沒有人被要求做任何事，不要做這個案子。</b>這不是工程問題，是管理承諾問題。原案寫了「連續 3 日暴風雨 ≥ 40% 推播店長與人資」，方向對，但推播之後呢？沒有這一段，上面三個機制一個都不會發生。</p>
       <p>而且這種情況<b>比不做更糟</b>。同仁填了三個月、什麼都沒改變，之後你們任何內部調查都不會有人認真填。燒掉的不是這個功能，是同一批人下一次的信任——而信任只能燒一次。</p>
     </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">「感謝章」是什麼</h2>
+    <div class="caveat">
+      <h3>先說清楚：這是提案，不是說明</h3>
+      <p>「感謝章」這個詞來自<b>你的原案</b>——我從來沒有拿到它的規格，草樣裡一直是個示意的分頁。所以我沒辦法「說明」它是什麼，只能提一個具體版本讓你對照。<b>如果你們心裡的感謝章不是這樣，告訴我實際的規則，我改。</b></p>
+    </div>
+    <p class="para">我的提案很單純：<b>感謝章是同事之間的感謝紀錄</b>。一人一天限三枚，三步送出，不強制寫字。收到的人會收到 LINE 通知，月底看得到自己累積了幾枚。</p>
+    <p class="para"><b>為什麼要限量三枚</b>：無限量會變成互相刷章，一週就失去意義。限量會讓人挑真的值得的那件事。</p>
+    <p class="sec-sub" style="margin-top:8px">五個理由是照美容業現場想的——不是抽象的「你很棒」，是具體發生過的事：</p>
+    <div class="stampgrid">
+      <div class="stampchip">幫我頂班</div>
+      <div class="stampchip">客人放心交給你</div>
+      <div class="stampchip">教我一個手法</div>
+      <div class="stampchip">幫我收尾</div>
+      <div class="stampchip">就是想說謝謝</div>
+    </div>
+    <div class="story">
+      <span class="k">具體舉例</span>
+      <p>週六下午客人爆滿，<b>淑芬</b>幫<b>雅婷</b>頂掉了最後一組客人。雅婷收店前打開 LINE，點「淑芬」→ 點「幫我頂班」→ 送出，整個動作<b>八秒</b>。</p>
+      <p>淑芬當晚收到通知。月底她看到自己收了 <b>7 枚</b>。店長月底看到全店送出 <b>43 枚</b>、比上月多 9 枚，以及「幫我頂班」是最常被送出的理由——那句話其實在說：<b>這家店的人力在互相補洞</b>。</p>
+    </div>
+    <p class="sec-sub" style="margin-top:10px">和心晴的關係，這點才是重點——兩者的隱私原則<b>剛好相反</b>：</p>
+    <div class="vs">
+      <div class="vsbox h">
+        <span class="n">感謝章</span>
+        <h4>正向流量 · 公開</h4>
+        <ul>
+          <li>收到章是好事，<b>要讓人看見</b></li>
+          <li>有送出者、有收受者、有理由</li>
+          <li>店長看得到誰收到最多，這沒問題</li>
+        </ul>
+      </div>
+      <div class="vsbox m">
+        <span class="n">心晴</span>
+        <h4>壓力訊號 · 不公開</h4>
+        <ul>
+          <li>只有本人看得到自己的紀錄</li>
+          <li>主管只看得到全店比例，<b>且需 ≥ 3 人</b></li>
+          <li>任何角色都沒有查個人的路徑</li>
+        </ul>
+      </div>
+    </div>
+    <p class="para" style="margin-top:6px">兩個一起看才有意義：一家店<b>心情在惡化但感謝章沒有減少</b>，代表壓力來自外部（業績、客訴、排班）；如果<b>兩個一起垮</b>，那是人跟人之間的問題，處理方式完全不同。</p>
+    <p class="para">介面上必須讓這個差別很明顯，否則同仁會混淆兩者的可見範圍——一旦有人以為心情也是公開的，資料當場失真。所以兩個分頁底部的那一行字是相反的，你可以在下面的草樣裡看到。</p>
   </section>
 
   <hr class="rule">
@@ -319,12 +456,34 @@ table.succ td b{color:var(--ink)}
   <hr class="rule">
 
   <section>
+    <h2 class="sec">「暴風雨」換個說法</h2>
+    <p class="sec-sub">你問得對。<b>「暴風雨」的問題不是不好聽，是太重</b>——一個人要按下它，等於公開宣告自己撐不住了，所以他會往上按一格變成「陣雨」。<b>而那一格正好是你最需要的訊號</b>，於是它系統性地被低報。修法是讓最壞的那一格變成「容易承認」，而不是「嚴重宣告」。</p>
+    <div class="wordbar">
+      <span class="h">按一下切換，下面 B 畫面的按鈕會跟著換</span>
+      <div class="wordopts" id="wordopts"></div>
+      <p class="why" id="wordwhy"></p>
+    </div>
+  </section>
+
+  <section>
     <h2 class="sec">畫面草樣</h2>
-    <p class="sec-sub">三個畫面都能實際操作。同仁頁可以點天氣、店長頁可以疊上結帳日、人資頁可以切換店別。</p>
+    <p class="sec-sub">四個畫面都能實際操作。感謝章可以走完送出流程、心晴可以點天氣、店長頁可以疊上結帳日並回報關懷、人資頁可以切換店別。</p>
     <div class="screens">
 
       <div class="screen">
         <div class="screen-cap"><span class="screen-num">A</span>
+          <span class="screen-name">感謝章</span><span class="screen-role">一般同仁</span>
+          <span class="prop">提案</span><span class="live">可操作</span></div>
+        <div class="phone">
+          <div class="bar"><span>9:41</span><span>winex-honor</span></div>
+          <div class="tabs"><div class="tab on">感謝章</div><div class="tab ghost">心晴</div><div class="tab ghost">我的</div></div>
+          <div class="pbody" id="honorBody"></div>
+          <div class="foot h">收到的章，全店都看得到</div>
+        </div>
+      </div>
+
+      <div class="screen">
+        <div class="screen-cap"><span class="screen-num">B</span>
           <span class="screen-name">心晴</span><span class="screen-role">一般同仁</span>
           <span class="live">可操作</span></div>
         <div class="phone">
@@ -336,7 +495,7 @@ table.succ td b{color:var(--ink)}
       </div>
 
       <div class="screen">
-        <div class="screen-cap"><span class="screen-num">B</span>
+        <div class="screen-cap"><span class="screen-num">C</span>
           <span class="screen-name">本店天氣</span><span class="screen-role">店長</span>
           <span class="live">可操作</span></div>
         <div class="phone">
@@ -353,26 +512,18 @@ table.succ td b{color:var(--ink)}
             <button class="toggle" id="tgl" aria-pressed="false">
               <span class="sw-ui"></span><span>疊上結帳日</span></button>
             <div class="finding" id="finding"></div>
+            <div class="xlsx">事件來源：<b>每月匯入一次的 Excel</b>（結帳日、檔期、排班）。當月未匯入時這裡會顯示提醒，不會安靜地少一層資料。</div>
             <div class="gap-key"><i></i>當日填答未達 3 人，不顯示</div>
-            <div class="action">
-              <span class="h">⚑ 已觸發警示　<span id="alertDates"></span></span>
-              連續 3 日暴風雨達 40%。系統只通知，不指名任何人。
-              <ol>
-                <li>店長 72 小時內回覆一件本週會調整的事</li>
-                <li>人資同步檢視該店排班與業績壓力</li>
-                <li>30 日後回看天氣有沒有改善</li>
-              </ol>
-              <div style="margin-top:8px;color:var(--ink-3)">↑ 這段是<b style="color:var(--extra)">計畫外新增</b>的回應機制（第 8 格）</div>
-            </div>
+            <div id="alertCard"></div>
           </div>
           <div class="foot">只有全店統計，沒有個人紀錄</div>
         </div>
       </div>
 
       <div class="screen">
-        <div class="screen-cap"><span class="screen-num">C</span>
+        <div class="screen-cap"><span class="screen-num">D</span>
           <span class="screen-name">各店天氣</span><span class="screen-role">人資</span>
-          <span class="live">可操作</span></div>
+          <span class="prop">計畫外</span><span class="live">可操作</span></div>
         <div class="phone">
           <div class="bar"><span>9:41</span><span>winex-honor</span></div>
           <div class="tabs"><div class="tab ghost">感謝章</div><div class="tab on">各店天氣</div><div class="tab ghost">我的</div></div>
@@ -383,13 +534,78 @@ table.succ td b{color:var(--ink)}
             <div id="hrList"></div>
             <div class="sdetail" id="hrDetail"></div>
             <div style="margin-top:13px;font-size:12px;color:var(--ink-3);line-height:1.6">
-              這一頁是<b style="color:var(--extra)">計畫外新增</b>（第 7 格）。原案只做到本店。</div>
+              六家店在手機上已經接近上限。<b style="color:var(--ink)">這一頁建議搬到戰情室</b>，見下方「放在哪裡」。</div>
           </div>
           <div class="foot">只有全店統計，沒有個人紀錄</div>
         </div>
       </div>
 
     </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">「誰負責回應」——關懷走線下，系統只留紀錄</h2>
+    <p class="sec-sub">你問的是要在系統裡回應還是電話關懷。我的答案是<b>兩者都要，但分工要切乾淨</b>。</p>
+    <div class="cols2">
+      <div class="panel">
+        <h3>關懷本身：電話或面談，不進系統</h3>
+        <ul>
+          <li>情緒的事在系統裡打字，會變成<b>寫給系統看的公文</b>。五分鐘的電話勝過五百字的表單。</li>
+          <li>而且打字會留下文字紀錄，那反而製造新的隱私問題——原本我們刻意不收任何文字。</li>
+          <li>誰打：<b>店長</b>負責本店關懷，<b>人資</b>負責看跨店與結構。但關懷的對象不是「暴風雨那個人」——系統不知道是誰，店長也不該去找。是全店。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>系統只問三件事，目標 30 秒</h3>
+        <ul>
+          <li><b>有沒有做</b>：一鍵。</li>
+          <li><b>做了什麼</b>：選項式一行（調整排班／個別談過／調整業績目標／補人力／其他）。</li>
+          <li><b>什麼時候</b>：自動帶，不用填。</li>
+          <li>回報內容<b>不得指名任何同仁</b>——與心晴的隱私原則一致。</li>
+        </ul>
+      </div>
+    </div>
+    <p class="para">為什麼還是要有這個紀錄：<b>沒有紀錄就沒有問責，警示會被讀完即忘</b>。而且三個月後你要驗收「警示後 30 日內有沒有改善」，需要知道哪些警示真的被處理過、哪些沒有——否則你分不清是機制沒用，還是根本沒人動。</p>
+    <p class="para">上面 C 畫面底部的警示卡片可以實際點「回報已關懷」，那就是我建議的 30 秒流程。</p>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <h2 class="sec">放在哪裡</h2>
+    <p class="sec-sub">你說後面再討論，我同意。但先講一件事：這個決定<b>不影響現在的進度</b>，因為資料層是同一套，差的只是前端在哪裡渲染。我的建議是三頁分開想。</p>
+    <div class="phases">
+      <div class="phase">
+        <span class="n">同仁記錄頁</span>
+        <h3>必須在 LINE LIFF</h3>
+        <span class="when">沒有別的選項</span>
+        <ul>
+          <li>LINE 是他們<b>唯一每天會主動打開</b>的地方。做成網頁就等於沒人會去。</li>
+          <li>感謝章同理，而且送出後的通知本來就走 LINE。</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="n">店長本店天氣</span>
+        <h3>LIFF 就夠</h3>
+        <span class="when">手機看得完</span>
+        <ul>
+          <li>欄位少、只看趨勢、一家店。手機尺寸沒有壓力。</li>
+          <li>警示推播落在 LINE，點開就在同一個地方回報，動線最短。</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <span class="n">人資跨店 + 疊圖</span>
+        <h3>建議走戰情室</h3>
+        <span class="when">手機會擠</span>
+        <ul>
+          <li>六家店在手機上已經接近上限，再多就得捲動比對。</li>
+          <li>疊圖要看細節、要對照業績，那是<b>坐在電腦前</b>做的事。</li>
+        </ul>
+      </div>
+    </div>
+    <p class="para">結論：<b>記錄在 LINE，分析在戰情室</b>。同一個 Supabase、同兩個 view，兩邊都接得上——所以現在真的不用急著決定。</p>
   </section>
 
   <hr class="rule">
@@ -414,7 +630,8 @@ table.succ td b{color:var(--ink)}
         <h3>讓資料開口說話</h3>
         <span class="when">第一期上線 + 約 3 週</span>
         <ul>
-          <li><b>營運事件疊圖</b>：結帳日、檔期、排班標在時間軸上</li>
+          <li><b>Excel 事件匯入</b>：結帳日、檔期、排班，每月一次</li>
+          <li><b>營運事件疊圖</b>：標在時間軸上</li>
           <li><b>跨店比較</b>：人資端排序與趨勢</li>
           <li><b>參與率監測</b>：只看店層級趨勢，不看誰沒填</li>
         </ul>
@@ -424,7 +641,7 @@ table.succ td b{color:var(--ink)}
         <h3>驗收，或者收掉</h3>
         <span class="when">第一期上線 + 約 3 個月</span>
         <ul>
-          <li><b>回應機制正式上線</b>：警示後 72 小時的動作與回報</li>
+          <li><b>回應機制正式上線</b>：警示後 72 小時的線下關懷與 30 秒回報</li>
           <li><b>成效檢視</b>：拿下面那三個數字對答案</li>
           <li><b>沒過就收掉</b>：與其留一個沒人理的頁面，不如誠實停掉</li>
         </ul>
@@ -440,7 +657,7 @@ table.succ td b{color:var(--ink)}
         <thead><tr><th>指標</th><th>合格線</th><th>不合格代表什麼</th></tr></thead>
         <tbody>
           <tr><td><b>填答率</b></td><td>連續三個月 ≥ 70%</td><td>同仁不信任、或覺得填了沒用。先修這個，其他都免談。</td></tr>
-          <tr><td><b>警示後改善</b></td><td>觸發後 30 日內該店暴風雨占比下降</td><td>警示有推、但沒有人真的動。第 8 格失敗。</td></tr>
+          <tr><td><b>警示後改善</b></td><td>觸發後 30 日內該店暴風雨占比下降</td><td>警示有推、但沒有人真的動。回應機制失敗。</td></tr>
           <tr><td><b>流失率差異</b></td><td>有介入的店優於無介入的店</td><td>整套假設不成立，該收掉。</td></tr>
         </tbody>
       </table>
@@ -461,12 +678,12 @@ table.succ td b{color:var(--ink)}
         <p style="margin:0;font-size:13.5px;color:var(--ink-3);line-height:1.7">原案把這三項排除是對的，我沒有偷渡進來。</p>
       </div>
       <div class="panel">
-        <h3>還沒決定的</h3>
+        <h3>還等你回答的</h3>
         <ul>
-          <li><b>業績與排班資料拿得到嗎</b>　是 ERP 裡的，還是人工維護的 Excel？這決定機制三是自動疊圖還是人工對照，差別很大。</li>
-          <li><b>「暴風雨」這個詞</b>　會不會讓人不敢點？改字不影響 enum，只換顯示文字。</li>
-          <li><b>誰負責回應警示</b>　第 8 格需要一個真的有權限調排班的人，不能只是收到通知。</li>
-          <li><b>LIFF 宿主</b>　winex-honor 目前不存在，感謝章分頁是照描述畫的示意。</li>
+          <li><b>感謝章的真實規格</b>　上面那一版是我提的。實際的章有幾種、有沒有限量、誰看得到，請你更正。</li>
+          <li><b>措辭選哪一組</b>　我推薦「天氣・俏皮」，理由在上面那一段。</li>
+          <li><b>誰負責回應警示</b>　需要一個真的有權限調排班的人，不能只是收到通知的人。</li>
+          <li><b>LIFF 宿主</b>　winex-honor 目前不存在。感謝章那一頁是提案，不是既有畫面的還原。</li>
         </ul>
       </div>
     </div>
@@ -475,20 +692,48 @@ table.succ td b{color:var(--ink)}
 </div>
 
 <script>
-/* ---------------- 圖示 ---------------- */
 var ICONS = {
   sunny:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="24" cy="24" r="9" fill="currentColor" stroke="none"></circle><path d="M24 5v5M24 38v5M5 24h5M38 24h5M10.6 10.6l3.5 3.5M33.9 33.9l3.5 3.5M37.4 10.6l-3.5 3.5M14.1 33.9l-3.5 3.5"></path></svg>',
   cloudy:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="16" cy="15" r="6" fill="currentColor" stroke="none"></circle><path d="M16 4v3M5 15h3M8.4 7.4l2.1 2.1M23.6 7.4L21.5 9.5"></path><path d="M35 37H16a7.5 7.5 0 0 1-.6-15 10.5 10.5 0 0 1 20 2.2A6.4 6.4 0 0 1 35 37Z" fill="currentColor" stroke="none"></path></svg>',
   rain:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M34 28H15a7.5 7.5 0 0 1-.6-15 10.5 10.5 0 0 1 20 2.2A6.4 6.4 0 0 1 34 28Z" fill="currentColor" stroke="none"></path><path d="M15 34l-2 7M24.5 34l-2 7M34 34l-2 7"></path></svg>',
   storm:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M34 26H15a7.5 7.5 0 0 1-.6-15 10.5 10.5 0 0 1 20 2.2A6.4 6.4 0 0 1 34 26Z" fill="currentColor" stroke="none"></path><path d="M26 29l-9 9h7l-3 8 9-9h-7l3-8Z" fill="currentColor" stroke="none"></path><path d="M13 32l-2 6M37 32l-2 6"></path></svg>'
 };
-var MOODS = [
-  {k:'sunny', label:'晴',    c:'var(--sunny)'},
-  {k:'cloudy',label:'多雲',  c:'var(--cloudy)'},
-  {k:'rain',  label:'陣雨',  c:'var(--rain)'},
-  {k:'storm', label:'暴風雨',c:'var(--storm)'}
-];
+var KEYS = ['sunny','cloudy','rain','storm'];
 var COLORS = ['var(--sunny)','var(--cloudy)','var(--rain)','var(--storm)'];
+
+/* ---------------- 措辭 ---------------- */
+var WORDSETS = [
+  {nm:'天氣・原案', l:['晴','多雲','陣雨','暴風雨'],
+   why:'原案的用法。<b>問題在最後一格</b>：要按下「暴風雨」等於公開宣告自己撐不住，多數人會往上按一格。你會得到一份看起來還好的資料。'},
+  {nm:'天氣・柔化', l:['大晴天','有點雲','飄小雨','風雨交加'],
+   why:'把四格都往口語調。比原案好按，但「風雨交加」仍然是<b>描述災難</b>，不是描述人的需要。'},
+  {nm:'天氣・俏皮', l:['大好天','有點雲','記得帶傘','想躲雨'],
+   why:'<b>我推薦這一組。</b>「想躲雨」把最壞的一格從「宣告災難」換成「說出需要」——同一個意思，但一個人願意按。而且整組還是天氣，所以主管端的「天氣圖」、圖例、顏色全部不用改，命名邏輯是完整的。'},
+  {nm:'電量・不談天氣', l:['滿格','還有電','快沒電','要充電了'],
+   why:'最沒有評價感、最好按的一組，「要充電了」幾乎沒有心理成本。<b>代價是整個產品的命名要跟著換</b>——「心晴天氣圖」、堆疊長條圖的天氣圖例都失去意義。要選這組，就要接受連產品名一起改。'}
+];
+var wIdx = 2;
+var wordopts = document.getElementById('wordopts');
+var wordwhy = document.getElementById('wordwhy');
+wordopts.innerHTML = WORDSETS.map(function(w, i){
+  return '<button class="wopt" data-w="' + i + '" aria-pressed="' + (i === wIdx) + '">' +
+         '<span class="nm">' + w.nm + (i === 2 ? '　★ 推薦' : '') + '</span>' +
+         '<span class="pv">' + w.l.join(' / ') + '</span></button>';
+}).join('');
+function setWords(i){
+  wIdx = i;
+  wordwhy.innerHTML = WORDSETS[i].why;
+  var os = wordopts.querySelectorAll('.wopt');
+  for(var k = 0; k < os.length; k++){
+    os[k].setAttribute('aria-pressed', os[k].getAttribute('data-w') === String(i) ? 'true' : 'false');
+  }
+  renderStaff();
+}
+function label(k){ return WORDSETS[wIdx].l[KEYS.indexOf(k)]; }
+wordopts.addEventListener('click', function(e){
+  var b = e.target.closest('.wopt');
+  if(b) setWords(parseInt(b.getAttribute('data-w'), 10));
+});
 
 /* ---------------- 九宮格 ---------------- */
 var PLAN = [
@@ -496,53 +741,44 @@ var PLAN = [
   why:'這是整套系統唯一的感測器，它的唯一任務是不造成負擔。一旦需要打字或思考，填答率會在兩週內崩掉。',
   how:'四顆大按鈕、一次點擊即寫入、當天可覆寫。不問原因、不收任何文字。',
   cost:'資料層已完成，前端約 1 天。',
-  risk:'「暴風雨」這個詞可能讓人不敢點，需要在現場試詞。'},
-
+  risk:'最壞的那一格若措辭太重，會被系統性低報——而那正是最需要的訊號。見上方「換個說法」。'},
  {t:'隱私架構', s:'k ≥ 3、RLS、view 隔離', x:false,
   why:'這是同仁願意誠實點的唯一前提。只要有一個人相信主管看得到個人紀錄，全店的資料就同時失真。',
-  how:'mood_log 上只有「本人自讀」一條 RLS，沒有給店長或人資的任何 policy；聚合走獨立 view，當日填答未達 3 人整列不回傳。任何角色都不存在查詢個人的路徑。',
+  how:'mood_log 上只有「本人自讀」一條 RLS，沒有給店長或人資的任何 policy；聚合走獨立 view，當日填答未達 3 人整列不回傳。',
   cost:'已完成，含一支隱私回歸測試。',
   risk:'service_role 金鑰若流到前端會繞過一切。這靠部署紀律，不是靠 SQL。'},
-
  {t:'本店天氣圖', s:'近 30 天趨勢', x:false,
   why:'店長需要看到的是趨勢，不是今天。單日永遠是雜訊。',
   how:'近 30 天堆疊長條圖，資料來源限 v_mood_store。填答未達 3 人的日子畫成缺口，不畫成 0——畫成 0 會被讀成「那天沒人上班」。',
   cost:'前端約 1 天。',
   risk:'只給圖不給解讀，店長會看過就算。所以必須接第 8 格。'},
-
  {t:'暴風雨警示', s:'連續 3 日 ≥ 40%', x:false,
   why:'沒有人會每天主動打開儀表板。訊號必須自己找上門。',
   how:'連續 3 日該店暴風雨占比 ≥ 40% 時推播店長與人資，內容只講「本店」，不指名任何人。',
   cost:'一支排程加一個 security definer 函式，約半天。排程沒有 auth.uid()，不能走 v_mood_store。',
   risk:'門檻訂太鬆會變成狼來了，訂太緊會漏掉。上線後前兩個月要回頭校準。'},
-
  {core:true, t:'核心目標', s:'把「大家最近很累」變成可操作的營運問題，並在人真的走之前看見訊號'},
-
- {t:'營運事件疊圖', s:'結帳日、檔期、排班', x:true,
+ {t:'營運事件疊圖', s:'Excel 每月匯入一次', x:true,
   why:'價值最高、成本最低的一項。心情本身只說「不好」，疊上結帳日與檔期才會說出「為什麼」。',
-  how:'在時間軸上標出結帳期與活動檔期，讓相關性自己浮出來。你們的業績總表本來就在記這些日期。',
-  cost:'日期若能自動取得約 1 天；只能人工維護的話，做成一張可編輯的事件表，約 1.5 天。',
-  risk:'相關不等於因果。它的用途是「指出該問哪個問題」，不是「證明誰有問題」。'},
-
+  how:'結帳日、檔期、排班以 <b>Excel 每月匯入一次</b>，系統存成事件表後疊在時間軸上。短期不做 ERP API 串接——你們現在也還沒有。',
+  cost:'匯入器加一張可編輯的事件表，約 1.5 天。比 API 串接快得多，且不必等 ERP 那邊排程。',
+  risk:'人工匯入會忘記。所以要設計成「當月沒匯入就在圖上顯示提醒」，而不是安靜地少一層資料。另外相關不等於因果——它的用途是指出該問哪個問題。'},
  {t:'跨店比較', s:'人資視角，排序與趨勢', x:true,
   why:'個人情緒人資動不了也不該動，但「某店持續比別店差」是結構問題，那是人資唯一能動手的層級。',
-  how:'人資端列出各店近 7 日暴風雨占比與趨勢方向並排序。仍然只有聚合，沒有個人。',
+  how:'列出各店近 7 日暴風雨占比與趨勢方向並排序。仍然只有聚合，沒有個人。手機放得下六家，再多建議搬到戰情室。',
   cost:'view 擴充加一頁前端，約 1 天。',
   risk:'會被當成店長考績表。畫面上要寫明它衡量的是環境不是人，否則店長會開始壓填答。'},
-
- {t:'回應機制', s:'警示之後，誰做什麼', x:true, key:true,
+ {t:'回應機制', s:'線下關懷 + 30 秒回報', x:true, key:true,
   why:'這一格決定整個案子成不成。警示推播出去之後如果沒有人被要求做任何事，前面七格全部作廢，而且比不做更糟。',
-  how:'定義警示後 72 小時內的動作：店長與人資各自要做什麼、是否需要回報、回報去哪。系統只負責記錄「這次警示有沒有被處理」。',
-  cost:'系統面很小，一張處理紀錄表。真正的成本是管理層的承諾。',
-  risk:'這是唯一一格工程做不到的。沒有這格，就不要做這個案子。'},
-
+  how:'<b>關懷本身走電話或面談，不在系統裡打字</b>。系統只問三件事：有沒有做（一鍵）、做了什麼（選項式一行）、什麼時候（自動）。目標 30 秒填完，且回報內容不得指名任何同仁。',
+  cost:'一張處理紀錄表加一個回報按鈕，約半天。真正的成本是管理層的承諾。',
+  risk:'若改成要求打字說明，店長會寫給系統看的公文，而且會拖延。這是唯一一格工程做不到的——沒有這格，就不要做這個案子。'},
  {t:'參與率監測', s:'填答率本身是訊號', x:true,
   why:'一家店的填答率從八成掉到兩成，那件事比任何一天的天氣都重要。',
   how:'只在人資端呈現店層級的填答率趨勢，不呈現「誰沒填」。',
   cost:'沿用同一個 view，約半天。',
   risk:'一旦填答率變成店長的 KPI，就會出現集體代填。所以只給人資看趨勢，不設目標值。'}
 ];
-
 var nine = document.getElementById('nine');
 var detail = document.getElementById('detail');
 nine.innerHTML = PLAN.map(function(p, i){
@@ -554,7 +790,6 @@ nine.innerHTML = PLAN.map(function(p, i){
          '<span class="tag">' + (p.x ? (p.key ? '計畫外 · 關鍵' : '計畫外') : '計畫內') + '</span>' +
          '<span class="t">' + p.t + '</span><span class="s">' + p.s + '</span></button>';
 }).join('');
-
 function showDetail(i){
   var p = PLAN[i];
   detail.innerHTML =
@@ -567,50 +802,109 @@ function showDetail(i){
       '<div><dt>成本</dt><dd>' + p.cost + '</dd></div>' +
       '<div><dt>風險</dt><dd>' + p.risk + '</dd></div>' +
     '</dl>';
-  var cells = nine.querySelectorAll('.cell[data-i]');
-  for(var k = 0; k < cells.length; k++){
-    cells[k].setAttribute('aria-pressed', cells[k].getAttribute('data-i') === String(i) ? 'true' : 'false');
+  var cs = nine.querySelectorAll('.cell[data-i]');
+  for(var k = 0; k < cs.length; k++){
+    cs[k].setAttribute('aria-pressed', cs[k].getAttribute('data-i') === String(i) ? 'true' : 'false');
   }
 }
 nine.addEventListener('click', function(e){
   var b = e.target.closest('.cell[data-i]');
   if(b) showDetail(parseInt(b.getAttribute('data-i'), 10));
 });
-showDetail(7); /* 預設打開「回應機制」 */
+showDetail(7);
 
-/* ---------------- 同仁頁 ---------------- */
-var staffBody = document.getElementById('staffBody');
-function renderAsk(){
-  staffBody.innerHTML =
-    '<p class="ask">今天的天氣如何？</p>' +
-    '<p class="ask-sub">9 月 10 日　點一下就好，不用打字</p>' +
-    '<div class="moods">' + MOODS.map(function(m){
-      return '<button class="mood" style="--c:' + m.c + '" data-k="' + m.k + '">' +
-             '<span class="ic">' + ICONS[m.k] + '</span><span class="lb">' + m.label + '</span></button>';
-    }).join('') + '</div>';
+/* ---------------- A 感謝章（提案） ---------------- */
+var PEERS = [
+  {n:'淑芬', r:'美容師 · 同班'},
+  {n:'雅婷', r:'美容師'},
+  {n:'阿美', r:'櫃檯'},
+  {n:'小玲', r:'美容師 · 早班'},
+  {n:'Ken',  r:'儀器技師'}
+];
+var STAMPS = ['幫我頂班','客人放心交給你','教我一個手法','幫我收尾','就是想說謝謝'];
+var honorBody = document.getElementById('honorBody');
+var hPick = null, hLeft = 3;
+
+function hStep1(){
+  honorBody.innerHTML =
+    '<p class="step">第 1 步 / 共 2 步</p>' +
+    '<p class="ask">今天想謝謝誰？</p>' +
+    '<p class="ask-sub">今天還可以送 ' + hLeft + ' 枚</p>' +
+    PEERS.map(function(p){
+      return '<button class="peer" data-p="' + p.n + '">' +
+             '<span class="av">' + p.n.slice(0,1) + '</span>' +
+             '<span><span class="pn">' + p.n + '</span>' +
+             '<span class="pr">' + p.r + '</span></span></button>';
+    }).join('') +
+    '<div class="mine"><div class="row"><span>我這個月收到</span><b>7 枚</b></div>' +
+    '<div class="row"><span>我這個月送出</span><b>11 枚</b></div>' +
+    '<div class="row"><span>全店這個月</span><b>43 枚</b></div></div>';
 }
-function renderDone(k){
-  var m = MOODS.filter(function(x){ return x.k === k; })[0];
-  staffBody.innerHTML =
-    '<p class="ask">今天已記錄</p>' +
-    '<p class="ask-sub">9 月 10 日　想改隨時可以改</p>' +
-    '<div class="done" style="--c:' + m.c + '">' +
-      '<span class="ic">' + ICONS[k] + '</span>' +
-      '<span class="done-tag">今天的天氣</span>' +
-      '<span class="done-name">' + m.label + '</span>' +
-      '<span class="done-time">剛剛記錄</span>' +
-    '</div>' +
-    '<button class="redo" id="redo">改成別的天氣</button>' +
-    '<div class="streak">你已經連續記錄 <b>18 天</b>。這些紀錄只有你看得到，主管看到的是全店的比例。</div>';
+function hStep2(){
+  honorBody.innerHTML =
+    '<p class="step">第 2 步 / 共 2 步</p>' +
+    '<p class="ask">為什麼想謝謝 ' + hPick + '？</p>' +
+    '<p class="ask-sub">選一個就好，不用打字</p>' +
+    STAMPS.map(function(s){
+      return '<button class="stampbtn" data-s="' + s + '">' + s + '</button>';
+    }).join('') +
+    '<button class="redo h" id="hback" style="margin-top:6px">換一個人</button>';
+}
+function hDone(s){
+  hLeft = Math.max(0, hLeft - 1);
+  honorBody.innerHTML =
+    '<p class="ask">已送出</p>' +
+    '<p class="ask-sub">' + hPick + ' 會收到 LINE 通知</p>' +
+    '<div class="sent"><div class="bigstamp">' + s + '</div>' +
+    '<span class="to">送給 <b>' + hPick + '</b></span></div>' +
+    '<p class="quota">今天還可以送 <b>' + hLeft + ' 枚</b>。限量是故意的——無限量會變成互相刷章。</p>' +
+    '<button class="redo h" id="hback">再送一枚</button>';
+}
+honorBody.addEventListener('click', function(e){
+  var p = e.target.closest('.peer');
+  if(p){ hPick = p.getAttribute('data-p'); hStep2(); return; }
+  var s = e.target.closest('.stampbtn');
+  if(s){ hDone(s.getAttribute('data-s')); return; }
+  if(e.target.closest('#hback')) hStep1();
+});
+hStep1();
+
+/* ---------------- B 心晴 ---------------- */
+var staffBody = document.getElementById('staffBody');
+var staffPick = null;
+function renderStaff(){
+  if(staffPick){
+    var i = KEYS.indexOf(staffPick);
+    staffBody.innerHTML =
+      '<p class="ask">今天已記錄</p>' +
+      '<p class="ask-sub">9 月 10 日　想改隨時可以改</p>' +
+      '<div class="done" style="--c:' + COLORS[i] + '">' +
+        '<span class="ic">' + ICONS[staffPick] + '</span>' +
+        '<span class="done-tag">今天的天氣</span>' +
+        '<span class="done-name">' + label(staffPick) + '</span>' +
+        '<span class="done-time">剛剛記錄</span>' +
+      '</div>' +
+      '<button class="redo" id="redo">改成別的</button>' +
+      '<div class="streak">你已經連續記錄 <b>18 天</b>。這些紀錄只有你看得到，主管看到的是全店的比例。</div>';
+  } else {
+    staffBody.innerHTML =
+      '<p class="ask">今天的天氣如何？</p>' +
+      '<p class="ask-sub">9 月 10 日　點一下就好，不用打字</p>' +
+      '<div class="moods">' + KEYS.map(function(k, i){
+        return '<button class="mood" style="--c:' + COLORS[i] + '" data-k="' + k + '">' +
+               '<span class="ic">' + ICONS[k] + '</span>' +
+               '<span class="lb">' + label(k) + '</span></button>';
+      }).join('') + '</div>';
+  }
 }
 staffBody.addEventListener('click', function(e){
   var b = e.target.closest('.mood');
-  if(b){ renderDone(b.getAttribute('data-k')); return; }
-  if(e.target.closest('#redo')) renderAsk();
+  if(b){ staffPick = b.getAttribute('data-k'); renderStaff(); return; }
+  if(e.target.closest('#redo')){ staffPick = null; renderStaff(); }
 });
-renderAsk();
+setWords(wIdx);
 
-/* ---------------- 資料產生（示意值，可重現） ---------------- */
+/* ---------------- 示意資料 ---------------- */
 function mulberry32(a){
   return function(){
     a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -628,8 +922,8 @@ function split(n, sh){
   for(var k = 0; k < rem; k++) f[ord[k].i]++;
   return f;
 }
-var CLOSE_FROM = 13, CLOSE_TO = 19;   /* 8/25 – 8/31 結帳期 */
-var START = new Date(2026, 7, 12);    /* 8/12 */
+var CLOSE_FROM = 13, CLOSE_TO = 19;
+var START = new Date(2026, 7, 12);
 function dlabel(i){
   var d = new Date(START.getTime() + i * 86400000);
   return (d.getMonth() + 1) + '/' + d.getDate();
@@ -651,9 +945,7 @@ function genStore(cfg){
     var c = split(n, [sunny/tot, cloudy/tot, rain/tot, storm/tot]);
     if(forced){
       var need = Math.ceil(n * 0.42), diff = need - c[3];
-      for(var t = 0; t < diff; t++){
-        if(c[0] > 0) c[0]--; else if(c[1] > 0) c[1]--; else c[2]--;
-      }
+      for(var t = 0; t < diff; t++){ if(c[0] > 0) c[0]--; else if(c[1] > 0) c[1]--; else c[2]--; }
       if(diff > 0) c[3] = need;
     }
     out.push({n:n, c:c});
@@ -661,15 +953,14 @@ function genStore(cfg){
   return out;
 }
 var STORES = [
-  {name:'忠孝店', seed:1101, base:.11, close:.33, trend:.0035, lo:8,  hi:12, alert:true},
-  {name:'信義店', seed:2202, base:.10, close:.19, trend:.0012, lo:7,  hi:11},
+  {name:'忠孝店', seed:1101, base:.11, close:.33, trend:.0035, lo:8, hi:12, alert:true},
+  {name:'信義店', seed:2202, base:.10, close:.19, trend:.0012, lo:7, hi:11},
   {name:'板橋店', seed:3303, base:.14, close:.21, trend:-.0022, lo:6, hi:10},
-  {name:'台中店', seed:4404, base:.09, close:.16, trend:.0002, lo:5,  hi:9},
-  {name:'台南店', seed:5505, base:.12, close:.18, trend:.0008, lo:3,  hi:7, thin:true},
+  {name:'台中店', seed:4404, base:.09, close:.16, trend:.0002, lo:5, hi:9},
+  {name:'台南店', seed:5505, base:.12, close:.18, trend:.0008, lo:3, hi:7, thin:true},
   {name:'高雄店', seed:6606, base:.08, close:.14, trend:-.0010, lo:6, hi:10}
 ];
 STORES.forEach(function(s){ s.days = genStore(s); });
-
 function ratio(d){ return d ? d.c[3] / d.n : null; }
 function windowRatio(days, from, to){
   var st = 0, tt = 0;
@@ -688,10 +979,9 @@ function alertRuns(days){
 }
 function pct(v){ return v === null ? '–' : Math.round(v * 100) + '%'; }
 
-/* ---------------- 店長頁 ---------------- */
+/* ---------------- C 店長 ---------------- */
 var MGR = STORES[0];
 var flags = alertRuns(MGR.days);
-
 document.getElementById('plot').innerHTML = MGR.days.map(function(d, i){
   if(!d) return '<div class="col"><div class="gap"></div></div>';
   var segs = '';
@@ -703,39 +993,31 @@ document.getElementById('plot').innerHTML = MGR.days.map(function(d, i){
   }
   return '<div class="col' + (flags.indexOf(i) > -1 ? ' flag' : '') + '">' + segs + '</div>';
 }).join('');
-
 document.getElementById('xaxis').innerHTML =
   [0, 9, 19, 29].map(function(i){ return '<span>' + dlabel(i) + '</span>'; }).join('');
-
 var band = document.getElementById('band');
 band.style.left  = (CLOSE_FROM / 30 * 100) + '%';
 band.style.width = ((CLOSE_TO - CLOSE_FROM + 1) / 30 * 100) + '%';
 
-var last7 = windowRatio(MGR.days, 23, 29);
-var prev7 = windowRatio(MGR.days, 16, 22);
-var deltaPts = Math.round((last7 - prev7) * 100);
+var last7 = windowRatio(MGR.days, 23, 29), prev7 = windowRatio(MGR.days, 16, 22);
+var dPts = Math.round((last7 - prev7) * 100);
 document.getElementById('mgrKpi').innerHTML =
   '<div class="kpi"><span class="k">近 7 日暴風雨</span><span class="v">' + pct(last7) + '</span>' +
-    '<span class="d ' + (deltaPts > 0 ? 'up' : 'down') + '">' +
-    (deltaPts > 0 ? '▲ 高於' : '▼ 低於') + '前 7 日 ' + Math.abs(deltaPts) + ' 個百分點</span></div>' +
+    '<span class="d ' + (dPts > 0 ? 'up' : 'down') + '">' +
+    (dPts > 0 ? '▲ 高於' : '▼ 低於') + '前 7 日 ' + Math.abs(dPts) + ' 個百分點</span></div>' +
   '<div class="kpi"><span class="k">填答率</span><span class="v">83%</span>' +
     '<span class="d down">▼ 較上月 4 個百分點</span></div>';
 
 var closeR = windowRatio(MGR.days, CLOSE_FROM, CLOSE_TO);
-var otherSt = 0, otherTt = 0;
-MGR.days.forEach(function(d, i){
-  if(d && (i < CLOSE_FROM || i > CLOSE_TO)){ otherSt += d.c[3]; otherTt += d.n; }
-});
-var otherR = otherSt / otherTt;
+var oSt = 0, oTt = 0;
+MGR.days.forEach(function(d, i){ if(d && (i < CLOSE_FROM || i > CLOSE_TO)){ oSt += d.c[3]; oTt += d.n; } });
 var finding = document.getElementById('finding');
 var TXT_OFF = '近 30 天的暴風雨比例集中在中段。<b>單看這張圖，看不出來為什麼。</b>把結帳日疊上去試試。';
 var TXT_ON  = '結帳期（' + dlabel(CLOSE_FROM) + '–' + dlabel(CLOSE_TO) + '）暴風雨占比 <b>' +
-              pct(closeR) + '</b>，其餘日子 <b>' + pct(otherR) + '</b>。' +
+              pct(closeR) + '</b>，其餘日子 <b>' + pct(oSt / oTt) + '</b>。' +
               '這不是誰的心理素質問題，是<b>月底那幾天的排班與結帳流程</b>。';
 finding.innerHTML = TXT_OFF;
-
-var tgl = document.getElementById('tgl');
-var plotwrap = document.getElementById('plotwrap');
+var tgl = document.getElementById('tgl'), plotwrap = document.getElementById('plotwrap');
 tgl.addEventListener('click', function(){
   var on = tgl.getAttribute('aria-pressed') !== 'true';
   tgl.setAttribute('aria-pressed', String(on));
@@ -743,16 +1025,51 @@ tgl.addEventListener('click', function(){
   finding.innerHTML = on ? TXT_ON : TXT_OFF;
 });
 
-document.getElementById('alertDates').textContent =
-  flags.length ? dlabel(flags[0]) + '–' + dlabel(flags[flags.length - 1]) : '';
+/* 警示卡片 + 30 秒回報 */
+var ACTS = ['調整排班','個別談過','調整業績目標','補人力','其他'];
+var alertCard = document.getElementById('alertCard');
+var aDates = flags.length ? dlabel(flags[0]) + '–' + dlabel(flags[flags.length - 1]) : '';
+function aOpen(){
+  alertCard.className = 'action';
+  alertCard.innerHTML =
+    '<span class="h">⚑ 已觸發警示　' + aDates + '</span>' +
+    '連續 3 日暴風雨達 40%。系統只通知，不指名任何人。' +
+    '<ol><li>店長 72 小時內<b>打電話或當面關懷全店</b>，不在系統裡打字</li>' +
+    '<li>人資同步檢視該店排班與業績壓力</li>' +
+    '<li>回到這裡按一下，30 秒回報做了什麼</li></ol>' +
+    '<button class="rep" id="repBtn">回報已關懷</button>';
+}
+function aPick(){
+  alertCard.className = 'action';
+  alertCard.innerHTML =
+    '<span class="h">做了什麼？選一個</span>' +
+    '不用打字，也<b>不要寫是誰</b>——與心晴的隱私原則一致。' +
+    ACTS.map(function(a){ return '<button class="opt" data-a="' + a + '">' + a + '</button>'; }).join('');
+}
+function aDone(a){
+  alertCard.className = 'action ok';
+  alertCard.innerHTML =
+    '<span class="h">✓ 已處理</span>' +
+    '<b>' + a + '</b>　9/10 上午 9:41 回報，全程一鍵。' +
+    '<div style="margin-top:8px">系統會在 <b>10/10</b> 回頭看這家店的天氣有沒有改善——' +
+    '那是三個月後驗收「警示後改善」用的資料。</div>' +
+    '<button class="rep" id="repBtn" style="border-color:var(--good);color:var(--good)">重看流程</button>';
+}
+alertCard.addEventListener('click', function(e){
+  if(e.target.closest('#repBtn')){
+    if(alertCard.classList.contains('ok')) aOpen(); else aPick();
+    return;
+  }
+  var o = e.target.closest('.opt');
+  if(o) aDone(o.getAttribute('data-a'));
+});
+aOpen();
 
-/* ---------------- 人資頁 ---------------- */
+/* ---------------- D 人資 ---------------- */
 var ranked = STORES.map(function(s){
-  var r7 = windowRatio(s.days, 23, 29);
-  var p7 = windowRatio(s.days, 16, 22);
+  var r7 = windowRatio(s.days, 23, 29), p7 = windowRatio(s.days, 16, 22);
   return {s:s, r7:r7, dir:(r7 - p7)};
 }).sort(function(a, b){ return b.r7 - a.r7; });
-
 document.getElementById('hrList').innerHTML = ranked.map(function(row, idx){
   var spark = row.s.days.map(function(d){
     var r = ratio(d);
@@ -769,7 +1086,6 @@ document.getElementById('hrList').innerHTML = ranked.map(function(row, idx){
          '<span class="spark">' + spark + '</span>' +
          '<span class="pc">' + pct(row.r7) + '</span>' + arrow + '</button>';
 }).join('');
-
 var hrDetail = document.getElementById('hrDetail');
 function showStore(idx){
   var row = ranked[idx], s = row.s;
@@ -779,8 +1095,7 @@ function showStore(idx){
     var segs = '';
     for(var j = 3; j >= 0; j--){
       if(d.c[j] > 0){
-        segs += '<div style="height:' + (d.c[j] / d.n * 100).toFixed(2) +
-                '%;background:' + COLORS[j] + '"></div>';
+        segs += '<div style="height:' + (d.c[j] / d.n * 100).toFixed(2) + '%;background:' + COLORS[j] + '"></div>';
       }
     }
     return '<div style="flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end">' +
@@ -793,14 +1108,14 @@ function showStore(idx){
   var trend = row.dir > 0.02 ? '近七日<b>正在惡化</b>。'
             : row.dir < -0.02 ? '近七日<b>正在改善</b>。' : '近七日大致持平。';
   var thin = s.days.filter(function(d){ return !d; }).length;
-  var thinNote = thin ? ' 有 <b>' + thin + ' 天</b>因填答未達 3 人未顯示。' : '';
   hrDetail.innerHTML =
     '<div class="t">' + s.name + '　近 30 天</div>' +
     '<div class="mini">' + mini + '</div>' +
-    '<div class="note2">' + note + trend + thinNote + '</div>';
-  var rows = document.querySelectorAll('.srow');
-  for(var k = 0; k < rows.length; k++){
-    rows[k].setAttribute('aria-pressed', rows[k].getAttribute('data-n') === String(idx) ? 'true' : 'false');
+    '<div class="note2">' + note + trend +
+    (thin ? ' 有 <b>' + thin + ' 天</b>因填答未達 3 人未顯示。' : '') + '</div>';
+  var rs = document.querySelectorAll('.srow');
+  for(var k = 0; k < rs.length; k++){
+    rs[k].setAttribute('aria-pressed', rs[k].getAttribute('data-n') === String(idx) ? 'true' : 'false');
   }
 }
 document.getElementById('hrList').addEventListener('click', function(e){
